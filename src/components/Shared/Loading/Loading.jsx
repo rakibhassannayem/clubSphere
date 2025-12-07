@@ -2,8 +2,8 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div>
-      <span className="loading loading-spinner text-success"></span>
+    <div className="flex justify-center items-center min-h-screen">
+      <span className="loading loading-spinner text-success size-14"></span>
     </div>
   );
 };

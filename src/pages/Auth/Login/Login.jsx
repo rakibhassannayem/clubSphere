@@ -6,13 +6,14 @@ import { FcGoogle } from "react-icons/fc";
 import { MdOutlineEmail } from "react-icons/md";
 import { GoLock } from "react-icons/go";
 import { Link, useLocation, useNavigate } from "react-router";
+import { TbCircleLetterC } from "react-icons/tb";
 
 const Login = () => {
-  const { loginUser, googleSignIn } = useAuth();
+  const { loginUser, googleSignIn, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
-  
+
   const {
     register,
     handleSubmit,
@@ -24,7 +25,7 @@ const Login = () => {
 
     loginUser(email, password)
       .then(() => {
-        console.log(from)
+        console.log(from);
         navigate(from);
       })
       .catch((err) => {
@@ -58,7 +59,7 @@ const Login = () => {
             onClick={handleGoogleSignIn}
             className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary"
           >
-            <FcGoogle />
+            <FcGoogle size={20} />
             Continue with Google
           </button>
           <div className="divider mb-0">OR</div>
@@ -115,7 +116,11 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                Log In
+                {loading ? (
+                  <TbCircleLetterC size={32} className="animate-spin " />
+                ) : (
+                  "Log In"
+                )}
               </button>
             </fieldset>
           </form>

@@ -6,9 +6,11 @@ import { GoLock } from "react-icons/go";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import { TbCircleLetterC } from "react-icons/tb";
+import { imageUpload } from "../../../utils";
 
 const Registration = () => {
-  const { registerUser, googleSignIn } = useAuth();
+  const { registerUser, googleSignIn, updateUser, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
@@ -19,17 +21,20 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
 
-  const handleRegister = (data) => {
+  const handleRegister = async (data) => {
     const { name, email, image, password } = data;
     const imageFile = image[0];
 
-    registerUser(email, password)
-      .then(() => {
-        navigate(from);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const imageURL = await imageUpload(imageFile);
+
+      await registerUser(email, password);
+
+      await updateUser(name, imageURL);
+      navigate(from);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleGoogleSignIn = () => {
@@ -59,7 +64,7 @@ const Registration = () => {
             onClick={handleGoogleSignIn}
             className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary"
           >
-            <FcGoogle />
+            <FcGoogle size={20} />
             Continue with Google
           </button>
           <div className="divider mb-0">OR</div>
@@ -112,10 +117,9 @@ const Registration = () => {
               )}
 
               <label>Photo (Optional)</label>
-
               <input
                 type="file"
-                className="file-input w-full rounded-xl text-gray-400 text-lg border focus:border-0 outline-primary"
+                className="file-input w-full h-12 rounded-xl text-gray-400 text-lg border focus:border-0 outline-primary"
                 {...register("image")}
               />
 
@@ -147,7 +151,11 @@ const Registration = () => {
                 type="submit"
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                Create Account
+                {loading ? (
+                  <TbCircleLetterC size={32} className="animate-spin " />
+                ) : (
+                  "Create Account"
+                )}
               </button>
             </fieldset>
           </form>

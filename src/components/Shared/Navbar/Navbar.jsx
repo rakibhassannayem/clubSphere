@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-
+  
   const links = (
     <>
       <li>
@@ -94,7 +94,11 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    src={
+                      user?.photoURL
+                        ? user.photoURL
+                        : "https://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png"
+                    }
                   />
                 </div>
               </div>
