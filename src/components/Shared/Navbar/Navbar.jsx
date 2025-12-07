@@ -1,11 +1,11 @@
-import React from "react";
 import Logo from "../Logo/Logo";
 import { Link, NavLink } from "react-router";
 import { FiLogIn } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-  const user = false;
+  const { user, logout } = useAuth();
 
   const links = (
     <>
@@ -39,6 +39,10 @@ const Navbar = () => {
       )}
     </>
   );
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className="bg-base-100 shadow-sm">
@@ -105,7 +109,12 @@ const Navbar = () => {
                   <NavLink to={"/dashboard"}>Dashboard</NavLink>
                 </li>
                 <li>
-                  <NavLink to={"/events"}>Logout</NavLink>
+                  <button
+                    onClick={handleLogout}
+                    className="btn bg-red-500 text-white text-lg"
+                  >
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

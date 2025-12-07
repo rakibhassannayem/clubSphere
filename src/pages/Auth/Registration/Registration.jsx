@@ -3,13 +3,16 @@ import Logo from "../../../components/Shared/Logo/Logo";
 import { FiUser } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import { GoLock } from "react-icons/go";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 
 const Registration = () => {
   const { registerUser, googleSignIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || "/";
+
   const {
     register,
     handleSubmit,
@@ -21,8 +24,8 @@ const Registration = () => {
     const imageFile = image[0];
 
     registerUser(email, password)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        navigate(from);
       })
       .catch((err) => {
         console.log(err);
@@ -32,7 +35,7 @@ const Registration = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
-        navigate("/");
+        navigate(from);
       })
       .catch((err) => {
         console.log(err);

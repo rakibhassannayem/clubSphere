@@ -5,11 +5,14 @@ import Logo from "../../../components/Shared/Logo/Logo";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineEmail } from "react-icons/md";
 import { GoLock } from "react-icons/go";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Login = () => {
   const { loginUser, googleSignIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || "/";
+  
   const {
     register,
     handleSubmit,
@@ -20,8 +23,9 @@ const Login = () => {
     const { email, password } = data;
 
     loginUser(email, password)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        console.log(from)
+        navigate(from);
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +54,10 @@ const Login = () => {
               Login to continue to ClubSphere
             </p>
           </div>
-          <button onClick={handleGoogleSignIn} className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary">
+          <button
+            onClick={handleGoogleSignIn}
+            className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary"
+          >
             <FcGoogle />
             Continue with Google
           </button>
