@@ -1,7 +1,13 @@
-import React from "react";
 import Logo from "../Logo/Logo";
 import { Link } from "react-router";
-import { FiFacebook, FiLinkedin, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import {
+  FiFacebook,
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiMapPin,
+  FiPhone,
+} from "react-icons/fi";
 import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
@@ -23,17 +29,24 @@ const Footer = () => {
           {/* social links */}
           <div className="flex gap-2">
             <a
+              href="https://www.linkedin.com/in/rakibhassannayem/"
+              className="w-10 h-10 rounded-lg bg-accent/30 flex items-center justify-center hover:bg-primary transition"
+            >
+              <FiLinkedin className="w-5 h-5" />
+            </a>
+
+            <a
+              href="https://github.com/rakibhassannayem"
+              className="w-10 h-10 rounded-lg bg-accent/30 flex items-center justify-center hover:bg-primary transition"
+            >
+              <FiGithub className="w-5 h-5" />
+            </a>
+
+            <a
               href="https://www.facebook.com/rhnayem23"
               className="w-10 h-10 rounded-lg bg-accent/30 flex items-center justify-center hover:bg-primary transition"
             >
               <FiFacebook className="w-5 h-5" />
-            </a>
-
-            <a
-              href="https://x.com/rhnayem23"
-              className="w-10 h-10 rounded-lg bg-accent/30 flex items-center justify-center hover:bg-primary transition"
-            >
-              <FaXTwitter className="w-5 h-5" />
             </a>
 
             <a
@@ -42,15 +55,10 @@ const Footer = () => {
             >
               <FaInstagram className="w-5 h-5" />
             </a>
-
-            <a
-              href="https://www.linkedin.com/in/rakibhassannayem/"
-              className="w-10 h-10 rounded-lg bg-accent/30 flex items-center justify-center hover:bg-primary transition"
-            >
-              <FiLinkedin className="w-5 h-5" />
-            </a>
           </div>
         </aside>
+
+        {/* navs */}
         <nav className="text-accent">
           <h6 className="footer-title text-white">Discover</h6>
           <Link to={"/clubs"} className="link link-hover">
@@ -78,7 +86,7 @@ const Footer = () => {
         </nav>
       </footer>
       {/* Contact Info */}
-      <div className="mt-12 pt-8 border-t border-background/10">
+      <div className="mt-12 pt-8 border-t border-accent">
         <div className="flex flex-wrap gap-6 justify-center md:justify-start mb-8 text-accent">
           <div className="flex items-center gap-2">
             <FiMail className="w-4 h-4" />

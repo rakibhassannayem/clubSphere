@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_apiKey,
@@ -9,4 +10,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_appId,
 }
 
-export const app = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+// Initialize Firebase Authentication and get a reference to the service
+export const auth = getAuth(app);

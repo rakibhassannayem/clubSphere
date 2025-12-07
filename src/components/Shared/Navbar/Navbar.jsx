@@ -28,7 +28,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              to={"/registration"}
+              to={"/register"}
               className="btn btn-primary text-white text-lg"
             >
               <RiUserAddLine />
@@ -116,7 +116,7 @@ const Navbar = () => {
                 Login
               </Link>
               <Link
-                to={"/registration"}
+                to={"/register"}
                 className="btn btn-primary text-white rounded-xl text-lg"
               >
                 <RiUserAddLine />

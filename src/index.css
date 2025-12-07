@@ -10,10 +10,10 @@
   default: true;
   --color-primary: #0e816a;
   --color-secondary: #132020;
-  --color-accent: #677e7e;
+  --color-accent: #6b7280;
 }
 
-body {
+/* body {
   font-family: "Outfit", sans-serif;
   color: #132020;
-}
+} */
