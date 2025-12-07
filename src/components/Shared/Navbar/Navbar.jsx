@@ -1,8 +1,12 @@
 import React from "react";
 import Logo from "../Logo/Logo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import { FiLogIn } from "react-icons/fi";
+import { RiUserAddLine } from "react-icons/ri";
 
 const Navbar = () => {
+  const user = false;
+
   const links = (
     <>
       <li>
@@ -14,6 +18,25 @@ const Navbar = () => {
       <li>
         <NavLink to={"/events"}>Events</NavLink>
       </li>
+      {!user && (
+        <div className="sm:hidden space-y-2">
+          <li>
+            <Link to={"/login"} className="btn btn-ghost text-lg">
+              <FiLogIn />
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={"/registration"}
+              className="btn btn-primary text-white text-lg"
+            >
+              <RiUserAddLine />
+              Register
+            </Link>
+          </li>
+        </div>
+      )}
     </>
   );
 
@@ -45,40 +68,61 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link to={"/"} className="btn btn-ghost">
+          <Logo></Logo>
+          <p className="text-3xl font-bold">
+            Club<span className="text-primary">Sphere</span>
+          </p>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
+      <div className="navbar-end ">
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                />
+              </div>
             </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <NavLink to={"/profile"}>Profile</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashboard"}>Dashboard</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/events"}>Logout</NavLink>
+              </li>
+            </ul>
           </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">Profile</a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        ) : (
+          <div className="space-x-2 hidden sm:block">
+            <Link to={"/login"} className="btn btn-ghost text-lg">
+              <FiLogIn />
+              Login
+            </Link>
+            <Link
+              to={"/registration"}
+              className="btn btn-primary text-white rounded-xl text-lg"
+            >
+              <RiUserAddLine />
+              Register
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
