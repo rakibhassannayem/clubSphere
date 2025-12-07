@@ -3,16 +3,16 @@ import Logo from "../../../components/Shared/Logo/Logo";
 import { FiUser } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import { GoLock } from "react-icons/go";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 
 const Registration = () => {
-  const { registerUser } = useAuth();
+  const { registerUser, googleSignIn } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -23,6 +23,16 @@ const Registration = () => {
     registerUser(email, password)
       .then((res) => {
         console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -42,7 +52,10 @@ const Registration = () => {
               Join ClubSphere and start connecting
             </p>
           </div>
-          <button className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary">
+          <button
+            onClick={handleGoogleSignIn}
+            className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary"
+          >
             <FcGoogle />
             Continue with Google
           </button>
