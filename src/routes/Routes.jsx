@@ -7,6 +7,7 @@ import Registration from "../pages/Auth/Registration/Registration";
 import Clubs from "../pages/Clubs/Clubs";
 import Events from "../pages/Events/Events";
 import PrivateRoutes from "./PrivateRoutes";
+import CreateClub from "../pages/Dashboard/Manager/CreateClub";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         Component: Registration,
+      },
+      {
+        path: "/create-club",
+        Component: CreateClub,
       },
     ],
   },
