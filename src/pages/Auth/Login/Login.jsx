@@ -7,9 +7,10 @@ import { MdOutlineEmail } from "react-icons/md";
 import { GoLock } from "react-icons/go";
 import { Link, useLocation, useNavigate } from "react-router";
 import { TbCircleLetterC } from "react-icons/tb";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const { loginUser, googleSignIn, loading } = useAuth();
+  const { loginUser, googleSignIn, loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
@@ -25,21 +26,24 @@ const Login = () => {
 
     loginUser(email, password)
       .then(() => {
-        console.log(from);
+        toast.success('Login successful!')
         navigate(from);
       })
       .catch((err) => {
-        console.log(err);
+        setLoading(false)
+        toast.error(err.message);
       });
   };
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
+        toast.success('Login successful!')
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        setLoading(false)
+        toast.error(err.message);
       });
   };
   return (

@@ -3,10 +3,11 @@ import { Link, NavLink } from "react-router";
 import { FiLogIn } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
 import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-  
+
   const links = (
     <>
       <li>
@@ -41,7 +42,11 @@ const Navbar = () => {
   );
 
   const handleLogout = () => {
-    logout();
+    logout()
+      .then(toast.success("Logout successful!"))
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
 
   return (

@@ -8,9 +8,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { TbCircleLetterC } from "react-icons/tb";
 import { imageUpload } from "../../../utils";
+import toast from "react-hot-toast";
 
 const Registration = () => {
-  const { registerUser, googleSignIn, updateUser, loading } = useAuth();
+  const { registerUser, googleSignIn, updateUser, loading, setLoading, setUser } =
+    useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
@@ -26,24 +28,32 @@ const Registration = () => {
     const imageFile = image[0];
 
     try {
-      const imageURL = await imageUpload(imageFile);
+      let imageURL = null;
+      if (imageFile) {
+        imageURL = await imageUpload(imageFile);
+      }
 
-      await registerUser(email, password);
+      const result = await registerUser(email, password);
 
-      await updateUser(name, imageURL);
+      await updateUser(name, imageURL || "");
+      setUser({ ...result.user, displayName: name, photoURL: imageURL });
+      toast.success("Registration Successful!");
       navigate(from);
     } catch (err) {
-      console.log(err);
+      setLoading(false)
+      toast.error(err?.message);
     }
   };
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
+        toast.success("Registration Successful!");
         navigate(from);
       })
       .catch((err) => {
-        console.log(err);
+        setLoading(false)
+        toast.error(err?.message);
       });
   };
 
