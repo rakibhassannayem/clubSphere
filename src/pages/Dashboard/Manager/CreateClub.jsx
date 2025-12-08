@@ -4,6 +4,7 @@ import { imageUpload } from "../../../utils";
 import useAuth from "../../../hooks/useAuth";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlineAdd } from "react-icons/md";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const CreateClub = () => {
   const { user } = useAuth();
@@ -12,6 +13,8 @@ const CreateClub = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const axiosSecure = useAxiosSecure();
 
   const handleCreateClub = async (data) => {
     const {
@@ -36,6 +39,10 @@ const CreateClub = () => {
         managerEmail: user.email,
         createdAt: new Date(),
       };
+
+      const result = await axiosSecure.post("/clubs", clubData);
+      console.log(result);
+      toast.success("Club Created Successfully!");
     } catch (err) {
       toast.error(err?.message);
     }

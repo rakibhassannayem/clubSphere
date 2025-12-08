@@ -17,6 +17,9 @@ const Navbar = () => {
         <NavLink to={"/clubs"}>Clubs</NavLink>
       </li>
       <li>
+        <NavLink to={"/create-club"}>Create Club</NavLink>
+      </li>
+      <li>
         <NavLink to={"/events"}>Events</NavLink>
       </li>
       {!user && (
