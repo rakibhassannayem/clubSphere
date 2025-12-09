@@ -4,23 +4,43 @@ import { imageUpload } from "../../../utils";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { MdOutlineAdd } from "react-icons/md";
+import { useMutation } from "@tanstack/react-query";
+import Loading from "../../../components/Shared/Loading/Loading";
+import ErrorPage from "../../ErrorPage/ErrorPage";
 
 const CreateClub = () => {
   const { user } = useAuth();
 
-  // const mutation = useMutation({
-  //   mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  // });
+  const {
+    isPending,
+    isError,
+    mutateAsync,
+    reset: mutationReset,
+  } = useMutation({
+    mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Club Created Successfully!");
+      mutationReset();
+    },
+    onError: (error) => {
+      toast.error('Please try again.');
+    },
+    // onMutate: (payload) => {
+    //   console.log("i will post this data-------->", payload);
+    // },
+    // onSettled: (data, error) => {
+    //   if (data) console.log(data);
+    //   if (error) console.log(error);
+    // },
+    retry: 3,
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const axiosSecure = useAxiosSecure();
@@ -47,15 +67,20 @@ const CreateClub = () => {
         membershipFee: Number(membershipFee),
         managerEmail: user.email,
         createdAt: new Date(),
+        members: 0,
+        status: "pending",
       };
 
-      const result = await axiosSecure.post("/clubs", clubData);
-      console.log(result.data);
-      toast.success("Club Created Successfully!");
+      await mutateAsync(clubData);
+      reset();
     } catch (err) {
       toast.error(err?.message);
     }
   };
+
+  if (isPending) return <Loading />;
+
+  if (isError) return <ErrorPage />;
 
   return (
     <div className="flex justify-center">
@@ -176,7 +201,11 @@ const CreateClub = () => {
                 type="submit"
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                Create Club
+                {isPending ? (
+                  <p className="loading loading-spinner text-success"></p>
+                ) : (
+                  "Create Club"
+                )}
               </button>
             </fieldset>
           </form>

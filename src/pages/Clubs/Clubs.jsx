@@ -73,13 +73,13 @@ const Clubs = () => {
           </label>
         </div>
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-3 sm:px-0">
         <p className="text-accent text-lg my-3">
           Showing{" "}
           <span className="font-bold text-secondary">{clubs?.length}</span>{" "}
           clubs
         </p>
-        <div className="grid grid-cols-3 gap-4 mb-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
           {clubs.map((club) => (
             <ClubCard key={club._id} club={club} />
           ))}
