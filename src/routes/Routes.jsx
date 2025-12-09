@@ -8,6 +8,11 @@ import Clubs from "../pages/Clubs/Clubs";
 import Events from "../pages/Events/Events";
 import PrivateRoutes from "./PrivateRoutes";
 import CreateClub from "../pages/Dashboard/Manager/CreateClub";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
+import ManageClubs from "../pages/Dashboard/Admin/ManageClubs";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import Payments from "../pages/Dashboard/Admin/Payments";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +25,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/clubs",
+        path: "clubs",
         Component: Clubs,
       },
       {
@@ -42,6 +47,32 @@ export const router = createBrowserRouter([
       {
         path: "/create-club",
         Component: CreateClub,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "admin-overview",
+        Component: AdminOverview,
+      },
+      {
+        path: "manage-users",
+        Component: ManageUsers,
+      },
+      {
+        path: "manage-clubs",
+        Component: ManageClubs,
+      },
+      {
+        path: "payments",
+        Component: Payments,
       },
     ],
   },

@@ -3,20 +3,20 @@ import toast from "react-hot-toast";
 import { imageUpload } from "../../../utils";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useMutation } from "@tanstack/react-query";
+import { MdOutlineAdd } from "react-icons/md";
 
 const CreateClub = () => {
   const { user } = useAuth();
 
-  const mutation = useMutation({
-    mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  // const mutation = useMutation({
+  //   mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  //   onError: (error) => {
+  //     console.log(error);
+  //   },
+  // });
   const {
     register,
     handleSubmit,
@@ -79,25 +79,27 @@ const CreateClub = () => {
                     })}
                   />
                   {errors.clubName && (
-                    <span className="text-red-500">
+                    <span className="text-sm text-red-500">
                       {errors.clubName.message}
                     </span>
                   )}
 
-                  <label className="font-medium">Location</label>
-                  <input
-                    type="text"
-                    placeholder="City, State"
-                    className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
-                    {...register("location", {
-                      required: "Location name is required",
-                    })}
-                  />
-                  {errors.location && (
-                    <span className="text-red-500">
-                      {errors.location.message}
-                    </span>
-                  )}
+                  <div>
+                    <label className="font-medium">Location</label>
+                    <input
+                      type="text"
+                      placeholder="City, State"
+                      className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
+                      {...register("location", {
+                        required: "Location name is required",
+                      })}
+                    />
+                    {errors.location && (
+                      <span className="text-sm text-red-500">
+                        {errors.location.message}
+                      </span>
+                    )}
+                  </div>
 
                   <label className="font-medium">Dscription</label>
                   <textarea
@@ -109,7 +111,7 @@ const CreateClub = () => {
                     })}
                   />
                   {errors.description && (
-                    <span className="text-red-500">
+                    <span className="text-sm text-red-500">
                       {errors.description.message}
                     </span>
                   )}

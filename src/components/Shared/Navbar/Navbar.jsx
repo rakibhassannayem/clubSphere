@@ -14,6 +14,9 @@ const Navbar = () => {
         <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
+        <NavLink to={"/dashboard"}>Dashboard</NavLink>
+      </li>
+      <li>
         <NavLink to={"/clubs"}>Clubs</NavLink>
       </li>
       <li>
@@ -81,11 +84,8 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <Link to={"/"} className="flex items-center gap-1">
+          <Link to={"/"}>
             <Logo></Logo>
-            <p className="text-3xl font-bold">
-              Club<span className="text-primary">Sphere</span>
-            </p>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

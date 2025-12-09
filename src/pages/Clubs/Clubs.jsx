@@ -11,7 +11,7 @@ const Clubs = () => {
           start connecting.
         </p>
 
-        <div className="mt-5 w-11/14 mx-auto grid grid-cols-1 sm:grid-cols-8 lg:grid-cols-14 gap-3">
+        <div className="mt-5 w-8/12 mx-auto grid grid-cols-1 sm:grid-cols-8 lg:grid-cols-14 gap-3">
           <label className="input h-11 col-span-1 sm:col-span-5 lg:col-span-8 w-full outline-none rounded-xl">
             <svg
               className="h-[1em] opacity-50"
@@ -60,7 +60,9 @@ const Clubs = () => {
           </label>
         </div>
       </div>
-      <div></div>
+      <div className="container mx-auto">
+        <p className="text-accent text-lg my-3">Showing <span className="font-bold text-secondary">0</span> clubs</p>
+      </div>
     </div>
   );
 };

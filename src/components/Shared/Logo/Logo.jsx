@@ -1,9 +1,12 @@
-import React from "react";
+import logo from "../../../assets/logo.png";
 
 const Logo = () => {
   return (
-    <div className="py-1 px-3 bg-primary text-3xl font-bold rounded-2xl text-white">
-      C
+    <div className="flex items-center gap-1">
+      <img className="w-10 rounded-xl" src={logo} alt="" />
+      <p className="text-3xl font-bold">
+        Club<span className="text-primary">Sphere</span>
+      </p>
     </div>
   );
 };
