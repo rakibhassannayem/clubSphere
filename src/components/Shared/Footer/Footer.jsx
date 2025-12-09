@@ -17,9 +17,6 @@ const Footer = () => {
         <aside>
           <Link to={"/"} className="flex items-center gap-1">
             <Logo></Logo>
-            <p className="text-3xl font-bold">
-              Club<span className="text-primary">Sphere</span>
-            </p>
           </Link>
           <p className="text-accent text-base">
             Discover, join, and manage local clubs. Connect with <br />

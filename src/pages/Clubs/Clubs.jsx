@@ -1,7 +1,20 @@
 import { FiFilter } from "react-icons/fi";
 import { FaSortAmountUp } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import ClubCard from "../../components/Cards/ClubCard";
 
 const Clubs = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: clubs = [] } = useQuery({
+    queryKey: ["clubs"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/clubs");
+      return res.data;
+    },
+  });
+
   return (
     <div>
       <div className="bg-base-200 py-10 text-center">
@@ -61,7 +74,16 @@ const Clubs = () => {
         </div>
       </div>
       <div className="container mx-auto">
-        <p className="text-accent text-lg my-3">Showing <span className="font-bold text-secondary">0</span> clubs</p>
+        <p className="text-accent text-lg my-3">
+          Showing{" "}
+          <span className="font-bold text-secondary">{clubs?.length}</span>{" "}
+          clubs
+        </p>
+        <div className="grid grid-cols-3 gap-4 mb-5">
+          {clubs.map((club) => (
+            <ClubCard key={club._id} club={club} />
+          ))}
+        </div>
       </div>
     </div>
   );
