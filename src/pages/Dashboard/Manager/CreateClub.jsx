@@ -24,7 +24,7 @@ const CreateClub = () => {
       mutationReset();
     },
     onError: (error) => {
-      toast.error('Please try again.');
+      toast.error(error);
     },
     // onMutate: (payload) => {
     //   console.log("i will post this data-------->", payload);

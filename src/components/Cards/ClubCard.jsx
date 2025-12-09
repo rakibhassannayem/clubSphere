@@ -1,8 +1,10 @@
 import { FiUsers } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
+import { Link } from "react-router";
 
 const ClubCard = ({ club }) => {
   const {
+    _id,
     clubName,
     category,
     description,
@@ -10,9 +12,12 @@ const ClubCard = ({ club }) => {
     bannerImage,
     membershipFee,
     members,
-  } = club;
+  } = club || {};
   return (
-    <div className="card bg-base-100 shadow-sm hover:shadow-xl hover:scale-102 transition cursor-pointer">
+    <Link
+      to={`/clubs/${_id}`}
+      className="card bg-base-100 shadow-sm hover:shadow-xl hover:scale-102 transition cursor-pointer"
+    >
       <figure className="relative">
         <img
           src={bannerImage}
@@ -33,7 +38,9 @@ const ClubCard = ({ club }) => {
         </div>
       </figure>
       <div className="p-3">
-        <span className="badge bg-primary/10 text-primary font-medium">{category}</span>
+        <span className="badge bg-primary/10 text-primary font-medium">
+          {category}
+        </span>
         <h2 className="card-title mt-2">{clubName}</h2>
         <p className="text-accent my-2">{description}</p>
         <p className="text-accent flex items-center gap-1">
@@ -41,7 +48,7 @@ const ClubCard = ({ club }) => {
           {location}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

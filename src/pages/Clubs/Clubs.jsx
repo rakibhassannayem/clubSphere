@@ -3,11 +3,12 @@ import { FaSortAmountUp } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import ClubCard from "../../components/Cards/ClubCard";
+import LoadingSkeleton from "../../components/Shared/LoadingSkeleton/LoadingSkeleton";
 
 const Clubs = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: clubs = [] } = useQuery({
+  const { data: clubs = [], isLoading } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await axiosSecure.get("/clubs");
@@ -79,11 +80,23 @@ const Clubs = () => {
           <span className="font-bold text-secondary">{clubs?.length}</span>{" "}
           clubs
         </p>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
-          {clubs.map((club) => (
-            <ClubCard key={club._id} club={club} />
-          ))}
-        </div>
+
+        {isLoading ? (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </div>
+        ) : clubs.length !== 0 ? (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+            {clubs.map((club) => (
+              <ClubCard key={club._id} club={club} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-2xl mt-10">No clubs found!</p>
+        )}
       </div>
     </div>
   );
