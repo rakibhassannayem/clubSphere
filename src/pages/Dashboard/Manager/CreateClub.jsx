@@ -2,12 +2,21 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../utils";
 import useAuth from "../../../hooks/useAuth";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { MdOutlineAdd } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useMutation } from "@tanstack/react-query";
 
 const CreateClub = () => {
   const { user } = useAuth();
+
+  const mutation = useMutation({
+    mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const {
     register,
     handleSubmit,
@@ -41,7 +50,7 @@ const CreateClub = () => {
       };
 
       const result = await axiosSecure.post("/clubs", clubData);
-      console.log(result);
+      console.log(result.data);
       toast.success("Club Created Successfully!");
     } catch (err) {
       toast.error(err?.message);
