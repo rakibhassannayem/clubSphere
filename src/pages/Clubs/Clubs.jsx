@@ -1,7 +1,7 @@
 import { FiFilter } from "react-icons/fi";
 import { FaSortAmountUp } from "react-icons/fa";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../../components/Cards/ClubCard";
 import LoadingSkeleton from "../../components/Shared/LoadingSkeleton/LoadingSkeleton";
 

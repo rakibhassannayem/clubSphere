@@ -1,16 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading/Loading";
 import { FiUsers } from "react-icons/fi";
 import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
 import { MdOutlineDateRange, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const ClubDetails = () => {
   const [activeTab, setActiveTab] = useState("about");
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const { data: club = [], isLoading } = useQuery({
     queryKey: ["club", id],
@@ -20,6 +24,7 @@ const ClubDetails = () => {
     },
   });
   const {
+    _id,
     clubName,
     bannerImage,
     category,
@@ -30,9 +35,46 @@ const ClubDetails = () => {
     createdAt,
   } = club || {};
 
-  if (isLoading) return <Loading />;
-  console.log(club);
+  const handleJoinClub = () => {
+    const paymentInfo = {
+      clubId: _id,
+      clubName,
+      category,
+      membershipFee,
+      description,
+      bannerImage,
+      member: {
+        name: user?.displayName,
+        email: user?.email,
+        photo: user?.photoURL,
+      },
+    };
 
+    Swal.fire({
+      title: `Membership fee is $${membershipFee}/month. Are you sure?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0e816a",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .post("/create-checkout-session", paymentInfo)
+          .then((res) => {
+            console.log(res);
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          });
+      }
+    });
+  };
+
+  if (isLoading) return <Loading />;
   return (
     <div className="card bg-base-200">
       <figure className="relative rounded-none">
@@ -159,7 +201,6 @@ const ClubDetails = () => {
                         <FiUsers />
                         {members} members
                       </div>
-                      
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -183,7 +224,10 @@ const ClubDetails = () => {
           <p className="text-accent">
             {membershipFee === 0 ? "No membership fee" : "per month"}
           </p>
-          <button className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4">
+          <button
+            onClick={handleJoinClub}
+            className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
+          >
             Join Club
           </button>
           <p className="text-accent text-sm mt-2">

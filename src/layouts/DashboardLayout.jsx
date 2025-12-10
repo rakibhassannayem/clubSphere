@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
 import { FaUsersCog } from "react-icons/fa";
 import { LuBuilding2 } from "react-icons/lu";
-import { MdOutlinePayment } from "react-icons/md";
+import { MdEventNote, MdOutlinePayment, MdOutlinePayments } from "react-icons/md";
 import { GrOverview } from "react-icons/gr";
 
 const DashboardLayout = () => {
@@ -92,6 +92,36 @@ const DashboardLayout = () => {
               >
                 <MdOutlinePayment />
                 <span className="is-drawer-close:hidden">View Payments</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/my-clubs"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
+                data-tip="My Clubs"
+              >
+                <LuBuilding2 />
+                <span className="is-drawer-close:hidden">My Clubs</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/my-events"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
+                data-tip="My Events"
+              >
+                <MdEventNote />
+                <span className="is-drawer-close:hidden">My Events</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/payment-history"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
+                data-tip="Payment History"
+              >
+                <MdOutlinePayments />
+                <span className="is-drawer-close:hidden">Payment History</span>
               </NavLink>
             </li>
           </ul>
