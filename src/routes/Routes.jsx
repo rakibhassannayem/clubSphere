@@ -13,6 +13,7 @@ import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
 import ManageClubs from "../pages/Dashboard/Admin/ManageClubs";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import Payments from "../pages/Dashboard/Admin/Payments";
+import ClubDetails from "../pages/Clubs/ClubDetails";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "clubs",
         Component: Clubs,
+      },
+      {
+        path: "/club-details/:id",
+        Component: ClubDetails,
       },
       {
         path: "/events",

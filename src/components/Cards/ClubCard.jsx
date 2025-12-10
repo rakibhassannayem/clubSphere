@@ -15,7 +15,7 @@ const ClubCard = ({ club }) => {
   } = club || {};
   return (
     <Link
-      to={`/clubs/${_id}`}
+      to={`/club-details/${_id}`}
       className="card bg-base-100 shadow-sm hover:shadow-xl hover:scale-102 transition cursor-pointer"
     >
       <figure className="relative">

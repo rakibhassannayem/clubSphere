@@ -18,8 +18,8 @@ const CreateClub = () => {
     reset: mutationReset,
   } = useMutation({
     mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      // console.log(data);
       toast.success("Club Created Successfully!");
       mutationReset();
     },
