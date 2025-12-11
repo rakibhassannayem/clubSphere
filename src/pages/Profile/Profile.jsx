@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { FiMail, FiShield, FiUser } from "react-icons/fi";
+import { FiMail, FiSave, FiShield, FiUser } from "react-icons/fi";
 import { useState } from "react";
 import useRole from "../../hooks/useRole";
-import Loading from "../../components/Shared/Loading/Loading";
+import { FaTimes } from "react-icons/fa";
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
@@ -32,41 +32,73 @@ const Profile = () => {
             )}
           </span>
 
-          <div className="w-full space-y-3">
-            <div className="bg-base-200 w-full p-3 rounded-lg text-accent flex items-center gap-3">
-              <FiUser size={24} />
-              <div>
-                <span>Name</span>
-                <p className="text-secondary">{user?.displayName}</p>
+          {!edit ? (
+            <div className="w-full space-y-3">
+              <div className="bg-base-200 w-full p-3 rounded-lg text-accent flex items-center gap-3">
+                <FiUser size={24} />
+                <div>
+                  <span>Name</span>
+                  <p className="text-secondary">{user?.displayName}</p>
+                </div>
+              </div>
+
+              <div className="bg-base-200 w-full p-3 rounded-lg text-accent flex items-center gap-3">
+                <FiMail size={23} />
+                <div>
+                  <span>Email</span>
+                  <p className="text-secondary">{user?.email}</p>
+                </div>
+              </div>
+
+              <div className="bg-base-200 w-full p-3 rounded-lg text-accent flex items-center gap-3">
+                <FiShield size={23} />
+                <div>
+                  <span>Role</span>
+                  <p className="text-secondary">
+                    {isRoleLoading ? (
+                      <span className="loading loading-spinner"></span>
+                    ) : (
+                      role.charAt(0).toUpperCase() + role.slice(1)
+                    )}
+                  </p>
+                </div>
               </div>
             </div>
+          ) : (
+            <fieldset className="fieldset w-full">
+              <legend className="fieldset-legend text-lg">Name</legend>
+              <input
+                type="text"
+                className="input w-full rounded-lg"
+                defaultValue={user?.displayName}
+              />
 
-            <div className="bg-base-200 w-full p-3 rounded-lg text-accent flex items-center gap-3">
-              <FiMail size={23} />
-              <div>
-                <span>Email</span>
-                <p className="text-secondary">{user?.email}</p>
+              <legend className="fieldset-legend text-lg">Photo</legend>
+              <input
+                type="text"
+                className="input w-full rounded-lg"
+                defaultValue={user?.displayName}
+              />
+
+              <div className="flex gap-2 mt-3">
+                <button className="btn text-white bg-primary hover:bg-primary/80 text-lg rounded-lg flex-1">
+                  <FiSave />
+                  Save Change
+                </button>
+                <button onClick={() => setEdit(false)} className="btn btn-outline border-2 text-primary text-lg rounded-lg hover:text-white hover:bg-primary flex-1">
+                  <FaTimes />
+                  Cancel
+                </button>
               </div>
-            </div>
+            </fieldset>
+          )}
 
-            <div className="bg-base-200 w-full p-3 rounded-lg text-accent flex items-center gap-3">
-              <FiShield size={23} />
-              <div>
-                <span>Role</span>
-                <p className="text-secondary">
-                  {isRoleLoading ? (
-                    <span className="loading loading-spinner"></span>
-                  ) : (
-                    role.charAt(0).toUpperCase() + role.slice(1)
-                  )}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <Link className=" text-white font-semibold bg-primary w-full text-center text-lg pl-2 py-2 rounded-lg">
+          <button
+            onClick={() => setEdit(true)}
+            className="btn text-white bg-primary hover:bg-primary/80 text-lg rounded-lg w-full"
+          >
             Edit Profile
-          </Link>
+          </button>
         </div>
       </div>
     </div>
