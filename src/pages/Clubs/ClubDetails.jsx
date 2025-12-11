@@ -13,7 +13,6 @@ const ClubDetails = () => {
   const [activeTab, setActiveTab] = useState("about");
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const { data: club = [], isLoading } = useQuery({

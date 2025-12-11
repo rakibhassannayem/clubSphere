@@ -1,10 +1,11 @@
 import { Link, NavLink, Outlet } from "react-router";
 import logo from "../assets/logo.png";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { FaUsersCog } from "react-icons/fa";
-import { LuBuilding2 } from "react-icons/lu";
+import { LuBuilding2, LuUserCog } from "react-icons/lu";
 import { MdEventNote, MdOutlinePayment, MdOutlinePayments } from "react-icons/md";
 import { GrOverview } from "react-icons/gr";
+import { PiUsersThree } from "react-icons/pi";
+import { BsBuildingGear } from "react-icons/bs";
 
 const DashboardLayout = () => {
   return (
@@ -61,7 +62,7 @@ const DashboardLayout = () => {
                 data-tip="Manage Users"
               >
                 <GrOverview />
-                <span className="is-drawer-close:hidden">Manage Users</span>
+                <span className="is-drawer-close:hidden">Admin Overview</span>
               </NavLink>
             </li>
             <li>
@@ -70,7 +71,7 @@ const DashboardLayout = () => {
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
                 data-tip="Manage Users"
               >
-                <FaUsersCog />
+                <LuUserCog />
                 <span className="is-drawer-close:hidden">Manage Users</span>
               </NavLink>
             </li>
@@ -80,7 +81,7 @@ const DashboardLayout = () => {
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
                 data-tip="Manage Clubs"
               >
-                <LuBuilding2 />
+                <BsBuildingGear />
                 <span className="is-drawer-close:hidden">Manage Clubs</span>
               </NavLink>
             </li>
@@ -112,6 +113,16 @@ const DashboardLayout = () => {
               >
                 <MdEventNote />
                 <span className="is-drawer-close:hidden">My Events</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/club-members"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
+                data-tip="Club Members"
+              >
+                <PiUsersThree />
+                <span className="is-drawer-close:hidden">Club Members</span>
               </NavLink>
             </li>
             <li>
