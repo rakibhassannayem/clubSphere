@@ -19,6 +19,7 @@ import MyEvents from "../pages/Dashboard/Member/MyEvents";
 import PaymentHistory from "../pages/Dashboard/Member/PaymentHistory";
 import PaymentSuccess from "../pages/Dashboard/Payments/PaymentSuccess";
 import ClubMembers from "../pages/Dashboard/Manager/ClubMembers";
+import Profile from "../pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,14 @@ export const router = createBrowserRouter([
       {
         path: "/create-club",
         Component: CreateClub,
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoutes>
+            <Profile />
+          </PrivateRoutes>
+        ),
       },
     ],
   },
