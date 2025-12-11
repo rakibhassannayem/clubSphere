@@ -57,18 +57,18 @@ const ClubDetails = () => {
       showCancelButton: true,
       confirmButtonColor: "#0e816a",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, I'll join!",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
           .post("/create-checkout-session", paymentInfo)
           .then((res) => {
-            console.log(res);
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
+            window.location.href = res.data.url;
+            // Swal.fire({
+            //   title: "Joined!",
+            //   text: "You have been joined to the club.",
+            //   icon: "success",
+            // });
           });
       }
     });
