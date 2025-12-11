@@ -1,6 +1,6 @@
 import Logo from "../Logo/Logo";
 import { Link, NavLink } from "react-router";
-import { FiLogIn } from "react-icons/fi";
+import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { RiUserAddLine } from "react-icons/ri";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -115,16 +115,22 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <NavLink to={"/profile"}>Profile</NavLink>
+                  <NavLink to={"/profile"} className="text-lg">
+                    Profile
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                  <NavLink to={"/dashboard"} className="text-lg">
+                    Dashboard
+                  </NavLink>
                 </li>
+                <div className="divider mt-2 mb-0"></div>
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="btn bg-red-500 text-white text-lg"
+                    className="text-red-500 text-lg font-medium"
                   >
+                    <FiLogOut />
                     Logout
                   </button>
                 </li>

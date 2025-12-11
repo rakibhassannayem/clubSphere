@@ -7,12 +7,18 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { TbCircleLetterC } from "react-icons/tb";
-import { imageUpload } from "../../../utils";
+import { imageUpload, saveOrUpdateUser } from "../../../utils";
 import toast from "react-hot-toast";
 
 const Registration = () => {
-  const { registerUser, googleSignIn, updateUser, loading, setLoading, setUser } =
-    useAuth();
+  const {
+    registerUser,
+    googleSignIn,
+    updateUser,
+    loading,
+    setLoading,
+    setUser,
+  } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
@@ -35,26 +41,33 @@ const Registration = () => {
 
       const result = await registerUser(email, password);
 
+      await saveOrUpdateUser({ name, email, image: imageURL });
+
       await updateUser(name, imageURL || "");
       setUser({ ...result.user, displayName: name, photoURL: imageURL });
       toast.success("Registration Successful!");
       navigate(from);
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
       toast.error(err?.message);
     }
   };
 
-  const handleGoogleSignIn = () => {
-    googleSignIn()
-      .then(() => {
-        toast.success("Registration Successful!");
-        navigate(from);
-      })
-      .catch((err) => {
-        setLoading(false)
-        toast.error(err?.message);
+  const handleGoogleSignIn = async () => {
+    try {
+      const { user } = await googleSignIn();
+
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
       });
+      toast.success("Registration Successful!");
+      navigate(from);
+    } catch (err) {
+      setLoading(false);
+      toast.error(err?.message);
+    }
   };
 
   return (
