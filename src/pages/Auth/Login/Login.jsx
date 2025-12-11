@@ -8,6 +8,7 @@ import { GoLock } from "react-icons/go";
 import { Link, useLocation, useNavigate } from "react-router";
 import { TbCircleLetterC } from "react-icons/tb";
 import toast from "react-hot-toast";
+import { saveOrUpdateUser } from "../../../utils";
 
 const Login = () => {
   const { loginUser, googleSignIn, loading, setLoading } = useAuth();
@@ -26,25 +27,30 @@ const Login = () => {
 
     loginUser(email, password)
       .then(() => {
-        toast.success('Login successful!')
+        toast.success("Login successful!");
         navigate(from);
       })
       .catch((err) => {
-        setLoading(false)
+        setLoading(false);
         toast.error(err.message);
       });
   };
 
-  const handleGoogleSignIn = () => {
-    googleSignIn()
-      .then(() => {
-        toast.success('Login successful!')
-        navigate("/");
-      })
-      .catch((err) => {
-        setLoading(false)
-        toast.error(err.message);
+  const handleGoogleSignIn = async () => {
+    try {
+      const { user } = await googleSignIn();
+
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
       });
+      toast.success("Login Successful!");
+      navigate(from);
+    } catch (err) {
+      setLoading(false);
+      toast.error(err?.message);
+    }
   };
   return (
     <div className="flex justify-center">
