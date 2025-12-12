@@ -2,8 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import ClubCard from "../../../components/Cards/ClubCard";
 import useAuth from "../../../hooks/useAuth";
+import ManagerClubCard from "../../../components/Cards/ManagerClubCard";
+import { MdOutlineAdd } from "react-icons/md";
 
 const ManagerClubs = () => {
   const axiosSecure = useAxiosSecure();
@@ -12,20 +13,23 @@ const ManagerClubs = () => {
   const { data: clubs = [], isLoading } = useQuery({
     queryKey: ["clubs", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/clubs?email=${user?.email}`);
+      const res = await axiosSecure.get(`/manager-clubs?email=${user?.email}`);
       return res.data;
     },
   });
 
   return (
     <div className="bg-base-200 p-4">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center justify-between mb-3">
         <div>
           <h2 className="text-2xl text-secondary font-bold">My Clubs</h2>
-          <p className="text-accent">Clubs you're a member of.</p>
+          <p className="text-accent">Manage and create clubs you own.</p>
         </div>
-        <Link to={"/clubs"} className="btn btn-primary text-white rounded-lg">
-          Browse More Clubs
+        <Link
+          to={"/create-club"}
+          className="btn btn-primary text-white rounded-lg"
+        >
+          <MdOutlineAdd size={18} /> Create Club
         </Link>
       </div>
 
@@ -39,7 +43,7 @@ const ManagerClubs = () => {
       ) : clubs.length !== 0 ? (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
           {clubs.map((club) => (
-            <ClubCard key={club._id} club={club} />
+            <ManagerClubCard key={club._id} club={club} />
           ))}
         </div>
       ) : (

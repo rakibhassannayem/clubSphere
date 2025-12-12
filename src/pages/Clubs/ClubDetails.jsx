@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading/Loading";
 import { FiUsers } from "react-icons/fi";
@@ -123,7 +123,7 @@ const ClubDetails = () => {
 
       <div className="container mx-auto my-4 flex flex-col lg:flex-row justify-between gap-3">
         <div className="border bg-white border-base-300 rounded-xl p-5 w-full">
-          {/* Tabs + Content */}
+          {/* Tabs */}
           <div className="tabs tabs-boxed w-full font-semibold">
             <button
               className={`tab ${

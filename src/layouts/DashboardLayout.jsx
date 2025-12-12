@@ -127,19 +127,6 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink
-                    to={"/dashboard/manager-overview"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
-                    data-tip="Manager Overview"
-                  >
-                    <GrOverview />
-                    <span className="is-drawer-close:hidden">
-                      Manager Overview
-                    </span>
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink
                     to={"/dashboard/manager-clubs"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
                     data-tip="My Clubs"
