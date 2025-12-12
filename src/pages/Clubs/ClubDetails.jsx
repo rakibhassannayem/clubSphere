@@ -32,6 +32,7 @@ const ClubDetails = () => {
     description,
     location,
     createdAt,
+    managerEmail
   } = club || {};
 
   const handleJoinClub = () => {
@@ -247,8 +248,8 @@ const ClubDetails = () => {
             </div>
 
             <div className="flex items-center justify-between text-accent">
-              <p>Category</p>
-              <span className="text-secondary">{category}</span>
+              <p>Manager</p>
+              <span className="text-secondary">{managerEmail}</span>
             </div>
           </div>
         </div>
