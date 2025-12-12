@@ -5,7 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import ClubCard from "../../../components/Cards/ClubCard";
 import useAuth from "../../../hooks/useAuth";
 
-const MyClubs = () => {
+const MemberClubs = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
@@ -51,4 +51,4 @@ const MyClubs = () => {
   );
 };
 
-export default MyClubs;
+export default MemberClubs;

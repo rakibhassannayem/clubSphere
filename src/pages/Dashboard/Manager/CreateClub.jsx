@@ -19,7 +19,6 @@ const CreateClub = () => {
   } = useMutation({
     mutationFn: async (payload) => await axiosSecure.post("/clubs", payload),
     onSuccess: () => {
-      // console.log(data);
       toast.success("Club Created Successfully!");
       mutationReset();
     },
@@ -55,7 +54,6 @@ const CreateClub = () => {
       membershipFee,
     } = data;
     const imageFile = bannerImage[0];
-
     try {
       const imageURL = await imageUpload(imageFile);
       const clubData = {

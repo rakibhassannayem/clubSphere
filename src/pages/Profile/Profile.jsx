@@ -1,14 +1,39 @@
-import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { FiMail, FiSave, FiShield, FiUser } from "react-icons/fi";
 import { useState } from "react";
 import useRole from "../../hooks/useRole";
 import { FaTimes } from "react-icons/fa";
+import { imageUpload, saveOrUpdateUser } from "../../utils";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
-  const { user } = useAuth();
+  const { user, setUser, updateUser, setLoading } = useAuth();
   const { role, isRoleLoading } = useRole();
+
+  const handleSaveChange = async (e) => {
+    e.preventDefault();
+    const updatedName = e.target.name.value;
+    const updatedImageFile = e.target.image.files[0];
+    const email = user?.email;
+
+    try {
+      let imageURL = user?.photoURL;
+      if (updatedImageFile) {
+        imageURL = await imageUpload(updatedImageFile);
+      }
+
+      await saveOrUpdateUser({ name: updatedName, email, image: imageURL });
+
+      await updateUser(updatedName, imageURL || user?.photoURL);
+      setUser({ ...user, displayName: updatedName, photoURL: imageURL });
+      toast.success("Profile Updated successfully!");
+      setEdit(false);
+    } catch (err) {
+      setLoading(false);
+      toast.error(err?.message);
+    }
+  };
 
   return (
     <div className="flex justify-center mt-5 px-3">
@@ -28,7 +53,7 @@ const Profile = () => {
             {isRoleLoading ? (
               <span className="loading loading-spinner"></span>
             ) : (
-              role.charAt(0).toUpperCase() + role.slice(1)
+              role?.charAt(0).toUpperCase() + role?.slice(1)
             )}
           </span>
 
@@ -58,39 +83,49 @@ const Profile = () => {
                     {isRoleLoading ? (
                       <span className="loading loading-spinner"></span>
                     ) : (
-                      role.charAt(0).toUpperCase() + role.slice(1)
+                      role?.charAt(0).toUpperCase() + role?.slice(1)
                     )}
                   </p>
                 </div>
               </div>
             </div>
           ) : (
-            <fieldset className="fieldset w-full">
+            <form onSubmit={handleSaveChange} className="fieldset w-full">
               <legend className="fieldset-legend text-lg">Name</legend>
               <input
                 type="text"
+                name="name"
                 className="input w-full rounded-lg"
                 defaultValue={user?.displayName}
               />
 
-              <legend className="fieldset-legend text-lg">Photo</legend>
+              <legend className="fieldset-legend text-lg">
+                Photo (Optional)
+              </legend>
               <input
-                type="text"
-                className="input w-full rounded-lg"
-                defaultValue={user?.displayName}
+                type="file"
+                name="image"
+                className="file-input w-full h-10 rounded-lg text-gray-400 text-lg border focus:border-0 outline-primary"
               />
 
               <div className="flex gap-2 mt-3">
-                <button className="btn text-white bg-primary hover:bg-primary/80 text-lg rounded-lg flex-1">
+                <button
+                  type="submit"
+                  className="btn text-white bg-primary hover:bg-primary/80 text-lg rounded-lg flex-1"
+                >
                   <FiSave />
                   Save Change
                 </button>
-                <button onClick={() => setEdit(false)} className="btn btn-outline border-2 text-primary text-lg rounded-lg hover:text-white hover:bg-primary flex-1">
+                <button
+                  type="button"
+                  onClick={() => setEdit(false)}
+                  className="btn btn-outline border-2 text-primary text-lg rounded-lg hover:text-white hover:bg-primary flex-1"
+                >
                   <FaTimes />
                   Cancel
                 </button>
               </div>
-            </fieldset>
+            </form>
           )}
 
           <button

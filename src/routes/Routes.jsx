@@ -14,12 +14,17 @@ import ManageClubs from "../pages/Dashboard/Admin/ManageClubs";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import Payments from "../pages/Dashboard/Admin/Payments";
 import ClubDetails from "../pages/Clubs/ClubDetails";
-import MyClubs from "../pages/Dashboard/Member/MyClubs";
 import MyEvents from "../pages/Dashboard/Member/MyEvents";
 import PaymentHistory from "../pages/Dashboard/Member/PaymentHistory";
 import PaymentSuccess from "../pages/Dashboard/Payments/PaymentSuccess";
 import ClubMembers from "../pages/Dashboard/Manager/ClubMembers";
 import Profile from "../pages/Profile/Profile";
+import EventRegistrations from "../pages/Dashboard/Manager/EventRegistrations";
+import EventsManagement from "../pages/Dashboard/Manager/EventsManagement";
+import ManagerOverview from "../pages/Dashboard/Manager/ManagerOverview";
+import MemberOverview from "../pages/Dashboard/Member/MemberOverview";
+import ManagerClubs from "../pages/Dashboard/Manager/ManagerClubs";
+import MemberClubs from "../pages/Dashboard/Member/MemberClubs";
 
 export const router = createBrowserRouter([
   {
@@ -94,12 +99,33 @@ export const router = createBrowserRouter([
         Component: Payments,
       },
       {
-        path: "my-clubs",
-        Component: MyClubs,
+        path: "manager-overview",
+        Component: ManagerOverview,
       },
+      {
+        path: "manager-clubs",
+        Component: ManagerClubs,
+      },
+
       {
         path: "club-members",
         Component: ClubMembers,
+      },
+      {
+        path: "event-management",
+        Component: EventsManagement,
+      },
+      {
+        path: "event-registration",
+        Component: EventRegistrations,
+      },
+      {
+        path: "member-overview",
+        Component: MemberOverview,
+      },
+      {
+        path: "member-clubs",
+        Component: MemberClubs,
       },
       {
         path: "my-events",
