@@ -39,14 +39,16 @@ const Profile = () => {
     <div className="flex justify-center mt-5 px-3">
       <div className="shadow-2xl p-5 rounded-xl w-2xl">
         <div className="flex flex-col items-center gap-3">
-          <img
-            src={
-              user?.photoURL ||
-              "https://icons.iconarchive.com/icons/icons8/windows-8/256/City-No-Camera-icon.png"
-            }
-            alt=""
-            className="rounded-full w-20"
-          />
+          <div className="border-3 p-0.5 border-primary rounded-full">
+            <img
+              src={
+                user?.photoURL ||
+                "https://icons.iconarchive.com/icons/icons8/windows-8/256/City-No-Camera-icon.png"
+              }
+              alt=""
+              className="rounded-full w-20"
+            />
+          </div>
 
           <h2 className="text-xl font-bold">{user?.displayName}</h2>
           <span className=" text-white font-semibold bg-primary w-full text-start pl-2 py-1 rounded-lg">

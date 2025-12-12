@@ -9,7 +9,6 @@ import Events from "../pages/Events/Events";
 import PrivateRoutes from "./PrivateRoutes";
 import CreateClub from "../pages/Dashboard/Manager/CreateClub";
 import DashboardLayout from "../layouts/DashboardLayout";
-import AdminOverview from "../pages/Dashboard/Admin/AdminOverview";
 import ManageClubs from "../pages/Dashboard/Admin/ManageClubs";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import Payments from "../pages/Dashboard/Admin/Payments";
@@ -25,6 +24,7 @@ import ManagerOverview from "../pages/Dashboard/Manager/ManagerOverview";
 import MemberOverview from "../pages/Dashboard/Member/MemberOverview";
 import ManagerClubs from "../pages/Dashboard/Manager/ManagerClubs";
 import MemberClubs from "../pages/Dashboard/Member/MemberClubs";
+import Overview from "../pages/Dashboard/Overview/Overview";
 
 export const router = createBrowserRouter([
   {
@@ -83,8 +83,8 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "admin-overview",
-        Component: AdminOverview,
+        path: "overview",
+        Component: Overview,
       },
       {
         path: "manage-users",

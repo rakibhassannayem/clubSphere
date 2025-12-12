@@ -12,9 +12,12 @@ import { GrOverview } from "react-icons/gr";
 import { PiUsersThree } from "react-icons/pi";
 import { BsBuildingGear } from "react-icons/bs";
 import useRole from "../hooks/useRole";
+import Loading from "../components/Shared/Loading/Loading";
 
 const DashboardLayout = () => {
   const { role, isRoleLoading } = useRole();
+
+  if (isRoleLoading) return <Loading />;
 
   return (
     <div className="drawer lg:drawer-open">
@@ -70,21 +73,19 @@ const DashboardLayout = () => {
 
             {/* List items */}
 
+            <li>
+              <NavLink
+                to={"/dashboard/overview"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
+                data-tip="Overview"
+              >
+                <GrOverview />
+                <span className="is-drawer-close:hidden">Overview</span>
+              </NavLink>
+            </li>
+
             {role === "admin" && (
               <>
-                <li>
-                  <NavLink
-                    to={"/dashboard/admin-overview"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
-                    data-tip="Admin Overview"
-                  >
-                    <GrOverview />
-                    <span className="is-drawer-close:hidden">
-                      Admin Overview
-                    </span>
-                  </NavLink>
-                </li>
-
                 <li>
                   <NavLink
                     to={"/dashboard/manage-users"}
