@@ -2,18 +2,38 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
+import toast from "react-hot-toast";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: users = [], isLoading } = useQuery({
+  const {
+    data: users = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["users", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users`);
       return res.data;
     },
   });
+
+  const handleUpdateRole = async (email, role) => {
+    try {
+      const res = await axiosSecure.patch("/update-role", {
+        email: email,
+        role: role,
+      });
+      if (res.data?.modifiedCount > 0) {
+        toast.success("Role has been changed");
+        refetch();
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   return (
     <div className="bg-base-200 p-4">
@@ -81,13 +101,24 @@ const ManageUsers = () => {
                   </td>
                   <td>
                     <select
-                      defaultValue="Change Role"
+                      onChange={(e) =>
+                        handleUpdateRole(user.email, e.target.value)
+                      }
+                      defaultValue={user.role}
                       className="select select-accent w-auto border-primary outline-primary font-medium"
                     >
-                      <option disabled={true}>Change Role</option>
-                      <option>member</option>
-                      <option>manager</option>
-                      <option>admin</option>
+                      <option value="member" disabled={user.role === "member"}>
+                        member
+                      </option>
+                      <option
+                        value="manager"
+                        disabled={user.role === "manager"}
+                      >
+                        manager
+                      </option>
+                      <option value="admin" disabled={user.role === "admin"}>
+                        admin
+                      </option>
                     </select>
                   </td>
                 </tr>

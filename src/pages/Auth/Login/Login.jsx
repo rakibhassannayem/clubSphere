@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { saveOrUpdateUser } from "../../../utils";
 
 const Login = () => {
-  const { loginUser, googleSignIn, loading, setLoading } = useAuth();
+  const { loginUser, googleSignIn, loading, setLoading, setUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
@@ -25,7 +25,8 @@ const Login = () => {
     const { email, password } = data;
 
     loginUser(email, password)
-      .then(() => {
+      .then((res) => {
+        setUser(res.user);
         toast.success("Login successful!");
         navigate(from);
       })
