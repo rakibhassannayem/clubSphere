@@ -20,7 +20,7 @@ const Navbar = () => {
         <NavLink to={"/clubs"}>Clubs</NavLink>
       </li>
       <li>
-        <NavLink to={"/create-club"}>Create Club</NavLink>
+        <NavLink to={"/dashboard/create-club"}>Create Club</NavLink>
       </li>
       <li>
         <NavLink to={"/events"}>Events</NavLink>
@@ -102,6 +102,7 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
+                    referrerPolicy="no-referrer"
                     src={
                       user?.photoURL
                         ? user.photoURL

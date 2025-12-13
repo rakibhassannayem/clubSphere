@@ -25,7 +25,7 @@ const PaymentSuccess = () => {
             Thank you for joining. Please wait for the manager to aprrove you.
           </p>
           <Link
-            to={"/dashboard/my-clubs"}
+            to={"/dashboard/member-clubs"}
             className="btn btn-primary text-white rounded-lg text-lg"
           >
             Go to My Clubs

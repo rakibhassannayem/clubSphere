@@ -7,7 +7,6 @@ const ManagerClubCard = ({ club }) => {
   const {
     _id,
     clubName,
-    category,
     description,
     location,
     bannerImage,
@@ -28,7 +27,7 @@ const ManagerClubCard = ({ club }) => {
         <div className="absolute inset-0 bg-black/30"></div>
       </figure>
 
-      <div className="card-body">
+      <div className="card-body pt-1">
         <div className="flex items-center justify-between">
           <h2 className="card-title">{clubName}</h2>
           <span
@@ -40,7 +39,7 @@ const ManagerClubCard = ({ club }) => {
           </span>
         </div>
         <p className="text-accent">{description}</p>
-        <div className="flex items-center justify-between flex-wrap text-base text-accent">
+        <div className="flex gap-0.5 items-center justify-between flex-wrap text-base text-accent">
           <div className="flex items-center gap-1">
             <FiUsers />
             {members} members
@@ -50,7 +49,7 @@ const ManagerClubCard = ({ club }) => {
             {location}
           </div>
           <div>
-            {membershipFee === 0 ? "FREE" : `$${membershipFee}/mo`}
+            {membershipFee === 0 ? "FREE" : `$ ${membershipFee}/mo`}
           </div>
         </div>
         <Link className="btn btn-outline text-primary rounded-lg text-lg"><FiEdit />Edit Club</Link>

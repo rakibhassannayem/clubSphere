@@ -7,9 +7,11 @@ import { MdOutlineAdd } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import Loading from "../../../components/Shared/Loading/Loading";
 import ErrorPage from "../../ErrorPage/ErrorPage";
+import { useNavigate } from "react-router";
 
 const CreateClub = () => {
   const { user } = useAuth();
+  const navigate = useNavigate()
 
   const {
     isPending,
@@ -21,6 +23,7 @@ const CreateClub = () => {
     onSuccess: () => {
       toast.success("Club Created Successfully!");
       mutationReset();
+      navigate('/dashboard/manager-clubs')
     },
     onError: (error) => {
       toast.error(error);

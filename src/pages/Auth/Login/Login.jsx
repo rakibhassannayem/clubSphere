@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import Logo from "../../../components/Shared/Logo/Logo";

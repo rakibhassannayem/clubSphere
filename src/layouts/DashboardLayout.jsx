@@ -18,6 +18,7 @@ const DashboardLayout = () => {
   const { role, isRoleLoading } = useRole();
 
   if (isRoleLoading) return <Loading />;
+  
 
   return (
     <div className="drawer lg:drawer-open">
@@ -149,26 +150,26 @@ const DashboardLayout = () => {
 
                 <li>
                   <NavLink
-                    to={"/dashboard/event-management"}
+                    to={"/dashboard/events-management"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
-                    data-tip="Event Management"
+                    data-tip="Events Management"
                   >
                     <BsBuildingGear />
                     <span className="is-drawer-close:hidden">
-                      Event Management
+                      Events Management
                     </span>
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to={"/dashboard/event-registration"}
+                    to={"/dashboard/event-registrations"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
-                    data-tip="Event Registration"
+                    data-tip="Event Registrations"
                   >
                     <MdAppRegistration />
                     <span className="is-drawer-close:hidden">
-                      Event Registration
+                      Event Registrations
                     </span>
                   </NavLink>
                 </li>
@@ -177,19 +178,6 @@ const DashboardLayout = () => {
 
             {role === "member" && (
               <>
-                <li>
-                  <NavLink
-                    to={"/dashboard/member-overview"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right text-lg"
-                    data-tip="Member Overview"
-                  >
-                    <GrOverview />
-                    <span className="is-drawer-close:hidden">
-                      Member Overview
-                    </span>
-                  </NavLink>
-                </li>
-
                 <li>
                   <NavLink
                     to={"/dashboard/member-clubs"}

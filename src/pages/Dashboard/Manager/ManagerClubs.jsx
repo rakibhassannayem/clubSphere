@@ -26,7 +26,7 @@ const ManagerClubs = () => {
           <p className="text-accent">Manage and create clubs you own.</p>
         </div>
         <Link
-          to={"/create-club"}
+          to={"/dashboard/create-club"}
           className="btn btn-primary text-white rounded-lg"
         >
           <MdOutlineAdd size={18} /> Create Club

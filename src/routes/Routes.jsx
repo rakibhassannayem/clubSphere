@@ -60,10 +60,7 @@ export const router = createBrowserRouter([
         path: "/register",
         Component: Registration,
       },
-      {
-        path: "/create-club",
-        Component: CreateClub,
-      },
+      
       {
         path: "/profile",
         element: (
@@ -95,6 +92,10 @@ export const router = createBrowserRouter([
         Component: ManageClubs,
       },
       {
+        path: "create-club",
+        Component: CreateClub,
+      },
+      {
         path: "payments",
         Component: Payments,
       },
@@ -112,11 +113,11 @@ export const router = createBrowserRouter([
         Component: ClubMembers,
       },
       {
-        path: "event-management",
+        path: "events-management",
         Component: EventsManagement,
       },
       {
-        path: "event-registration",
+        path: "event-registrations",
         Component: EventRegistrations,
       },
       {
