@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
 import toast from "react-hot-toast";
+import { FaUsersCog } from "react-icons/fa";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -53,7 +54,8 @@ const ManageUsers = () => {
         </div>
       ) : users.length !== 0 ? (
         <div className="overflow-x-auto bg-white border border-base-300 rounded-2xl">
-          <h1 className="text-2xl text-secondary font-bold bg-white p-3 pb-0">
+          <h1 className="flex items-center gap-1 text-2xl text-secondary font-bold bg-white p-3 pb-0">
+            <FaUsersCog />
             All Users ({users.length})
           </h1>
           <table className="table">
