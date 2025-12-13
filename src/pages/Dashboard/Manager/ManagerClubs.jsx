@@ -48,7 +48,7 @@ const ManagerClubs = () => {
         </div>
       ) : (
         <p className="text-center text-2xl mt-10">
-          You haven't joined any club yet!
+          You haven't Created any club yet!
         </p>
       )}
     </div>
