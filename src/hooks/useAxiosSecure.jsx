@@ -12,10 +12,12 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && user?.accessToken) {
+    if (!loading) {
       // intercept request
       const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-        config.headers.Authorization = `Bearer ${user?.accessToken}`;
+        config.headers.Authorization = `Bearer ${localStorage.getItem(
+          "token"
+        )}`;
 
         return config;
       });
@@ -26,7 +28,7 @@ const useAxiosSecure = () => {
           return response;
         },
         (error) => {
-          console.log(error); 
+          console.log(error);
 
           const statusCode = error.status;
           if (statusCode === 401 || statusCode === 403) {
