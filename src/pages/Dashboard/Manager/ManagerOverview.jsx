@@ -1,6 +1,6 @@
 import { FiUserCheck, FiUsers } from "react-icons/fi";
 import { LuBuilding2 } from "react-icons/lu";
-import { MdPayment } from "react-icons/md";
+import { MdOutlineEventAvailable, MdPayment } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
@@ -30,9 +30,9 @@ const ManagerOverview = () => {
   return (
     <div className="bg-base-200 p-4">
       <div>
-        <h2 className="text-2xl text-secondary font-bold">Admin Overview</h2>
+        <h2 className="text-2xl text-secondary font-bold">Manager Overview</h2>
         <p className="text-accent">
-          Welcome back! Here's what's happening on ClubSphere.
+          Manage your clubs and track their performance.
         </p>
 
         {/* Stats */}
@@ -60,10 +60,10 @@ const ManagerOverview = () => {
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
-              <p className="text-lg text-accent">Active Events</p>
-              <FiUserCheck size={24} className="text-purple-500" />
+              <p className="text-lg text-accent">Total Events</p>
+              <MdOutlineEventAvailable size={24} className="text-purple-500" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">Banaaa</h2>
+            <h2 className="text-secondary font-semibold text-3xl">{stats.totalEvents}</h2>
           </div>
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">

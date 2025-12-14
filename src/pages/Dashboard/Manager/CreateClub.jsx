@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 
 const CreateClub = () => {
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     isPending,
@@ -23,18 +23,11 @@ const CreateClub = () => {
     onSuccess: () => {
       toast.success("Club Created Successfully!");
       mutationReset();
-      navigate('/dashboard/manager-clubs')
+      navigate("/dashboard/manager-clubs");
     },
     onError: (error) => {
       toast.error(error);
     },
-    // onMutate: (payload) => {
-    //   console.log("i will post this data-------->", payload);
-    // },
-    // onSettled: (data, error) => {
-    //   if (data) console.log(data);
-    //   if (error) console.log(error);
-    // },
     retry: 3,
   });
 
@@ -117,7 +110,7 @@ const CreateClub = () => {
                       placeholder="City, State"
                       className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
                       {...register("location", {
-                        required: "Location name is required",
+                        required: "Location is required",
                       })}
                     />
                     {errors.location && (
@@ -127,13 +120,13 @@ const CreateClub = () => {
                     )}
                   </div>
 
-                  <label className="font-medium">Dscription</label>
+                  <label className="font-medium">Description</label>
                   <textarea
                     type="text"
                     placeholder="Write club description here..."
                     className="input w-full h-20 py-3 rounded-xl focus:border-0 outline-primary text-lg"
                     {...register("description", {
-                      required: "Description name is required",
+                      required: "Description is required",
                     })}
                   />
                   {errors.description && (
@@ -171,7 +164,7 @@ const CreateClub = () => {
                     type="file"
                     className="file-input w-full h-11.5 rounded-xl text-gray-400 text-lg border focus:border-0 outline-primary"
                     {...register("bannerImage", {
-                      required: "Banner image name is required",
+                      required: "Banner image is required",
                     })}
                   />
                   {errors.bannerImage && (
@@ -187,7 +180,7 @@ const CreateClub = () => {
                     className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
                     {...register("membershipFee", {
                       required: "Membership Fee is required",
-                      min: { value: 0, message: "Price must be positive" },
+                      min: { value: 0, message: "Fee must be positive" },
                     })}
                   />
                   {errors.membershipFee && (

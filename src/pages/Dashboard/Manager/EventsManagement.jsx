@@ -2,25 +2,26 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
-import { MdOutlineEventNote } from "react-icons/md";
+import { MdOutlineAdd, MdOutlineEventNote } from "react-icons/md";
 import { LuUsers } from "react-icons/lu";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { Link } from "react-router";
 
 const EventsManagement = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: members = [], isLoading } = useQuery({
-    queryKey: ["members", user?.email],
+  const { data: events = [], isLoading } = useQuery({
+    queryKey: ["events", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/club-members/${user?.email}`);
+      const res = await axiosSecure.get(`/manager-events?email=${user?.email}`);
       return res.data;
     },
   });
 
   return (
     <div className="bg-base-200 p-4">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center justify-between mb-3">
         <div>
           <h2 className="text-2xl text-secondary font-bold">
             Events Management
@@ -29,6 +30,12 @@ const EventsManagement = () => {
             Create and manage events for your clubs.
           </p>
         </div>
+        <Link
+          to={"/dashboard/create-event"}
+          className="btn btn-primary text-white rounded-lg"
+        >
+          <MdOutlineAdd size={18} /> Create Event
+        </Link>
       </div>
 
       {isLoading ? (
@@ -38,10 +45,10 @@ const EventsManagement = () => {
           <LoadingSkeleton />
           <LoadingSkeleton />
         </div>
-      ) : members.length !== 0 ? (
+      ) : events.length !== 0 ? (
         <div className="overflow-x-auto bg-white border border-base-300 rounded-2xl">
           <h1 className="flex items-center gap-1 text-2xl text-secondary font-bold bg-white p-3 pb-0">
-            <MdOutlineEventNote /> All Events (4)
+            <MdOutlineEventNote /> All Events ({events.length})
           </h1>
           <table className="table">
             {/* head */}
@@ -57,29 +64,28 @@ const EventsManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {members.map((member) => (
-                <tr key={member._id}>
-                  <td>Photography Workshop</td>
+              {events.map((event) => (
+                <tr key={event._id}>
+                  <td>{event.title}</td>
                   <td>Photography Masters</td>
                   <td>
-                    2024-03-20
-                    {/* {new Date(member.joinedAt).toISOString().split("T")[0]} */}
+                    {new Date(event.eventDate).toISOString().split("T")[0]}
                   </td>
                   <td className="text-secondary">Studio A</td>
-                  <td
-                    className={`badge text-white font-bold mt-2 ${
-                      member.status === "active"
-                        ? "bg-primary"
-                        : "bg-orange-500"
-                    }`}
-                  >
-                    $25/Free
+                  <td>
+                    <div
+                      className={`badge font-bold rounded-full ${
+                        event.eventFee && "bg-orange-500 text-white"
+                      }`}
+                    >
+                      {event.eventFee ? event.eventFee : "Free"}
+                    </div>
                   </td>
 
                   <td>
                     <div className="flex items-center gap-1">
                       <LuUsers />
-                      24
+                      {event.registrations}
                     </div>
                   </td>
                   <td>
