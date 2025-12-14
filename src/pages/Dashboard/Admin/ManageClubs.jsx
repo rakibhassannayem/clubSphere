@@ -23,7 +23,7 @@ const ManageClubs = () => {
 
   const handleUpdateStatus = async (id, status) => {
     try {
-      const res = await axiosSecure.patch("/update-status", {
+      const res = await axiosSecure.patch("/update-club-status", {
         id: id,
         status: status,
       });
@@ -87,16 +87,18 @@ const ManageClubs = () => {
                       <span>${club.membershipFee}</span>
                     )}
                   </td>
-                  <td
-                    className={`badge text-white font-bold mt-2 ${
-                      club.status === "approved"
-                        ? "bg-primary"
-                        : club.status === "pending"
-                        ? "bg-orange-400"
-                        : "bg-red-600"
-                    }`}
-                  >
-                    {club.status}
+                  <td>
+                    <div
+                      className={`badge text-white font-bold ${
+                        club.status === "approved"
+                          ? "bg-primary"
+                          : club.status === "pending"
+                          ? "bg-orange-400"
+                          : "bg-red-600"
+                      }`}
+                    >
+                      {club.status}
+                    </div>
                   </td>
 
                   <td>

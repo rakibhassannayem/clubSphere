@@ -2,18 +2,38 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
+import toast from "react-hot-toast";
 
 const ClubMembers = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: members = [], isLoading } = useQuery({
+  const {
+    data: members = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["members", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/club-members/${user?.email}`);
       return res.data;
     },
   });
+
+  const handleUpdateStatus = async (id, status) => {
+    try {
+      const res = await axiosSecure.patch("/update-member-status", {
+        id: id,
+        status: status,
+      });
+      if (res.data?.modifiedCount > 0) {
+        toast.success("Status has been changed");
+        refetch();
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   return (
     <div className="bg-base-200 p-4">
@@ -74,6 +94,9 @@ const ClubMembers = () => {
                   </td>
                   <td>
                     <select
+                      onChange={(e) =>
+                        handleUpdateStatus(member._id, e.target.value)
+                      }
                       defaultValue="Change Status"
                       className="select select-accent w-auto border-0"
                     >
