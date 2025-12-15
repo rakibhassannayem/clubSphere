@@ -14,6 +14,7 @@ const EventCard = ({ event }) => {
     eventFee,
     registrations,
     eventDate,
+    maxAttendees
   } = event || {};
   const date = new Date(eventDate).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -46,7 +47,7 @@ const EventCard = ({ event }) => {
 
         <div className="text-white flex items-center gap-1 absolute bottom-3 right-3">
           <FiUsers />
-          {registrations}
+          {registrations}/{maxAttendees}
         </div>
       </figure>
       <div className="p-3">

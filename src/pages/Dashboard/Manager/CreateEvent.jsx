@@ -60,6 +60,7 @@ const CreateEvent = () => {
       eventDate,
       bannerImage,
       eventFee,
+      maxAttendees,
     } = data;
     const imageFile = bannerImage[0];
 
@@ -81,6 +82,7 @@ const CreateEvent = () => {
         managerEmail: user.email,
         createdAt: new Date(),
         registrations: 0,
+        maxAttendees: Number(maxAttendees),
       };
 
       await mutateAsync(eventData);
@@ -141,7 +143,7 @@ const CreateEvent = () => {
                   <textarea
                     type="text"
                     placeholder="Write event description here..."
-                    className="input w-full h-31 py-3 rounded-xl focus:border-0 outline-primary text-lg"
+                    className="input w-full h-20 py-3 rounded-xl focus:border-0 outline-primary text-lg resize-none whitespace-pre-wrap"
                     {...register("description", {
                       required: "Description is required",
                     })}
@@ -151,9 +153,7 @@ const CreateEvent = () => {
                       {errors.description.message}
                     </span>
                   )}
-                </div>
 
-                <div className="flex-1 space-y-2">
                   <label className="font-medium">Club</label>
                   <select
                     defaultValue={""}
@@ -177,7 +177,9 @@ const CreateEvent = () => {
                       {errors.club.message}
                     </p>
                   )}
+                </div>
 
+                <div className="flex-1 space-y-2">
                   <label className="font-medium">Event Date</label>
                   <input
                     type="date"
@@ -204,6 +206,25 @@ const CreateEvent = () => {
                   {errors.bannerImage && (
                     <p className="text-sm text-red-500 mt-1">
                       {errors.bannerImage.message}
+                    </p>
+                  )}
+
+                  <label className="font-medium">Max Attendees</label>
+                  <input
+                    type="number"
+                    defaultValue={10}
+                    className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
+                    {...register("maxAttendees", {
+                      required: "Max Attendees is required",
+                      min: {
+                        value: 1,
+                        message: "Max attendee  must be at least 1.",
+                      },
+                    })}
+                  />
+                  {errors.maxAttendees && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.maxAttendees.message}
                     </p>
                   )}
 
@@ -245,7 +266,9 @@ const CreateEvent = () => {
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
                 {isPending ? (
-                  <p className="loading loading-spinner text-success"></p>
+                  <div>
+                    <p className="loading loading-spinner text-success"></p>
+                  </div>
                 ) : (
                   "Create Event"
                 )}

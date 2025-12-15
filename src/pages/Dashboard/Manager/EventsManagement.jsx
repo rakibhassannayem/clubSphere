@@ -4,20 +4,50 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
 import { MdOutlineAdd, MdOutlineEventNote } from "react-icons/md";
 import { LuUsers } from "react-icons/lu";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const EventsManagement = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: events = [], isLoading } = useQuery({
+  const {
+    data: events = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["events", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/manager-events?email=${user?.email}`);
       return res.data;
     },
   });
+
+  console.log(events)
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0e816a",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/events/${id}`).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your event has been deleted.",
+            icon: "success",
+          });
+          refetch();
+        });
+      }
+    });
+  };
 
   return (
     <div className="bg-base-200 p-4">
@@ -67,32 +97,44 @@ const EventsManagement = () => {
               {events.map((event) => (
                 <tr key={event._id}>
                   <td>{event.title}</td>
-                  <td>Photography Masters</td>
+                  <td>{event.clubName}</td>
                   <td>
                     {new Date(event.eventDate).toISOString().split("T")[0]}
                   </td>
-                  <td className="text-secondary">Studio A</td>
+                  <td className="text-secondary">{event.location}</td>
                   <td>
                     <div
                       className={`badge font-bold rounded-full ${
                         event.eventFee && "bg-orange-500 text-white"
                       }`}
                     >
-                      {event.eventFee ? event.eventFee : "Free"}
+                      {event.eventFee ? `$${event.eventFee}` : "Free"}
                     </div>
                   </td>
 
                   <td>
                     <div className="flex items-center gap-1">
                       <LuUsers />
-                      {event.registrations}
+                      {event.registrations}/{event.maxAttendees}
                     </div>
                   </td>
                   <td>
-                    <button className="btn btn-ghost">
+                    <Link
+                      to={`/event-details/${event._id}`}
+                      className="btn btn-ghost"
+                    >
+                      <FiEye />
+                    </Link>
+                    <Link
+                      to={`/dashboard/edit-event/${event._id}`}
+                      className="btn btn-ghost"
+                    >
                       <FiEdit />
-                    </button>
-                    <button className="btn btn-ghost text-red-500">
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(event._id)}
+                      className="btn btn-ghost text-red-500"
+                    >
                       <FiTrash2 />
                     </button>
                   </td>
@@ -103,7 +145,7 @@ const EventsManagement = () => {
         </div>
       ) : (
         <p className="text-center text-2xl mt-10">
-          You haven't joined any club yet!
+          You haven't created any event yet!
         </p>
       )}
     </div>

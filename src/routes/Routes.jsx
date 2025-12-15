@@ -20,7 +20,6 @@ import ClubMembers from "../pages/Dashboard/Manager/ClubMembers";
 import Profile from "../pages/Profile/Profile";
 import EventRegistrations from "../pages/Dashboard/Manager/EventRegistrations";
 import EventsManagement from "../pages/Dashboard/Manager/EventsManagement";
-import MemberOverview from "../pages/Dashboard/Member/MemberOverview";
 import ManagerClubs from "../pages/Dashboard/Manager/ManagerClubs";
 import MemberClubs from "../pages/Dashboard/Member/MemberClubs";
 import Overview from "../pages/Dashboard/Overview/Overview";
@@ -30,6 +29,7 @@ import MemberRoutes from "./MemberRoutes";
 import CreateEvent from "../pages/Dashboard/Manager/CreateEvent";
 import EventDetails from "../pages/Events/EventDetails";
 import EditClub from "../pages/Dashboard/Manager/EditClub";
+import EditEvent from "../pages/Dashboard/Manager/EditEvent";
 
 export const router = createBrowserRouter([
   {
@@ -160,6 +160,14 @@ export const router = createBrowserRouter([
         element: (
           <ManagerRoutes>
             <CreateEvent />
+          </ManagerRoutes>
+        ),
+      },
+      {
+        path: "edit-event/:id",
+        element: (
+          <ManagerRoutes>
+            <EditEvent />
           </ManagerRoutes>
         ),
       },

@@ -7,21 +7,47 @@ import Loading from "../../../components/Shared/Loading/Loading";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import { useNavigate, useParams } from "react-router";
 import { FaRegEdit } from "react-icons/fa";
+import useAuth from "../../../hooks/useAuth";
+import { useEffect, useState } from "react";
 
-const EditClub = () => {
+const EditEvent = () => {
+  const [isPaidCheck, setIsPaidCheck] = useState(false);
   const { id } = useParams();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const today = new Date().toISOString().split("T")[0];
 
-  const { data: club = [], isLoading } = useQuery({
-    queryKey: ["club", id],
+  const { data: clubs = {}, isLoading: clubsLoading } = useQuery({
+    queryKey: ["clubs", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure(`/clubs/${id}`);
+      const res = await axiosSecure.get(`/manager-clubs?email=${user?.email}`);
       return res.data;
     },
   });
-  const { clubName, category, membershipFee, description, location } =
-    club || {};
+
+  const { data: event = {}, isLoading } = useQuery({
+    queryKey: ["event", id],
+    queryFn: async () => {
+      const res = await axiosSecure(`/events/${id}`);
+      return res.data;
+    },
+  });
+
+  const {
+    title,
+    location,
+    description,
+    club,
+    eventDate,
+    eventFee,
+    maxAttendees,
+    isPaid,
+  } = event || {};
+
+  useEffect(() => {
+    setIsPaidCheck(isPaid);
+  }, [isPaid]);
 
   const {
     isPending,
@@ -30,11 +56,11 @@ const EditClub = () => {
     reset: mutationReset,
   } = useMutation({
     mutationFn: async (payload) =>
-      await axiosSecure.patch(`/clubs/${id}`, payload),
+      await axiosSecure.patch(`/events/${id}`, payload),
     onSuccess: () => {
-      toast.success("Club updated Successfully!");
+      toast.success("Event updated Successfully!");
       mutationReset();
-      navigate(`/club-details/${id}`);
+      navigate("/dashboard/events-management");
     },
     onError: (error) => {
       toast.error(error);
@@ -49,15 +75,19 @@ const EditClub = () => {
     reset,
   } = useForm();
 
-  const handleUpdateClub = async (data) => {
+  const handleUpdateEvent = async (data) => {
     const {
-      clubName,
-      bannerImage,
-      category,
-      membershipFee,
-      description,
+      title,
       location,
+      description,
+      club,
+      eventDate,
+      bannerImage,
+      eventFee,
+      maxAttendees,
+      category,
     } = data;
+    const selectedClub = clubs.find((c) => c._id === club);
 
     try {
       let imageURL = club?.bannerImage;
@@ -66,51 +96,57 @@ const EditClub = () => {
         imageURL = await imageUpload(bannerImage[0]);
       }
 
-      const clubData = {
+      const eventData = {
+        title,
         bannerImage: imageURL,
-        clubName,
-        description,
-        location,
+        clubId: club,
+        clubName: selectedClub.clubName,
         category,
-        membershipFee: Number(membershipFee),
+        description,
+        eventDate,
+        location,
+        isPaid: isPaidCheck,
+        eventFee: isPaid ? Number(eventFee) : 0,
+        maxAttendees: Number(maxAttendees),
         updatedAt: new Date(),
       };
 
-      await mutateAsync(clubData);
+      await mutateAsync(eventData);
       reset();
     } catch (err) {
       toast.error(err?.message);
     }
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || clubsLoading) return <Loading />;
   if (isError) return <ErrorPage />;
+  const formattedDate = eventDate.split("T")[0];
 
   return (
     <div className="flex justify-center">
       <div className="card bg-base-100 w-full max-w-5xl rounded-2xl shrink-0 shadow-2xl my-5">
         <div className="card-body">
           <div className="flex items-center gap-2 text-2xl font-bold text-primary">
-            <FaRegEdit size={24} /> <span>Edit Club</span>
+            <FaRegEdit size={24} /> <span>Edit Event</span>
           </div>
 
-          <form onSubmit={handleSubmit(handleUpdateClub)}>
+          <form onSubmit={handleSubmit(handleUpdateEvent)}>
             <fieldset className="fieldset text-lg ">
               <div className="flex flex-col md:flex-row gap-10">
                 <div className="flex-1 space-y-2">
-                  <label className="font-medium">Club Name</label>
+                  <label className="font-medium">Event Title</label>
                   <input
                     type="text"
-                    defaultValue={clubName}
-                    placeholder="Enter club name"
+                    defaultValue={title}
+                    placeholder="Enter event title"
                     className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
-                    {...register("clubName", {
-                      required: "Club name is required",
+                    {...register("title", {
+                      required: "Event title is required",
                     })}
                   />
-                  {errors.clubName && (
+                  {errors.title && (
                     <span className="text-sm text-red-500">
-                      {errors.clubName.message}
+                      {errors.title.message}
                     </span>
                   )}
 
@@ -136,7 +172,7 @@ const EditClub = () => {
                   <textarea
                     type="text"
                     defaultValue={description}
-                    placeholder="Write club description here..."
+                    placeholder="Write event description here..."
                     className="input w-full h-20 py-3 rounded-xl focus:border-0 outline-primary text-lg resize-none whitespace-pre-wrap"
                     {...register("description", {
                       required: "Description is required",
@@ -147,52 +183,101 @@ const EditClub = () => {
                       {errors.description.message}
                     </span>
                   )}
-                </div>
 
-                <div className="flex-1 space-y-2">
-                  <label className="font-medium">Category</label>
+                  <label className="font-medium">Club</label>
                   <select
-                    defaultValue={category}
+                    defaultValue={club}
                     name="category"
                     className="w-full select h-12 rounded-xl focus:border-0 outline-primary text-lg"
-                    {...register("category", {
-                      required: "Category is required",
+                    {...register("club", {
+                      required: "Club is required",
                     })}
                   >
                     <option value="" disabled>
-                      Select category
+                      Select Club
                     </option>
-                    <option value="Photography">Photography</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Tech">Tech</option>
+                    {clubs.map((club) => (
+                      <option key={club._id} value={club?._id}>
+                        {club?.clubName}
+                      </option>
+                    ))}
                   </select>
-                  {errors.category && (
+                  {errors.club && (
                     <p className="text-sm text-red-500 mt-1">
-                      {errors.category.message}
+                      {errors.club.message}
                     </p>
                   )}
+                </div>
 
+                <div className="flex-1 space-y-2">
+                  <label className="font-medium">Event Date</label>
+                  <input
+                    type="date"
+                    defaultValue={formattedDate}
+                    className="input w-full py-5.5 rounded-xl focus:border-0 outline-primary text-lg"
+                    min={today}
+                    {...register("eventDate", {
+                      required: "Event Date is required",
+                    })}
+                  />
+                  {errors.eventDate && (
+                    <span className="text-sm text-red-500">
+                      {errors.eventDate.message}
+                    </span>
+                  )}
                   <label className="font-medium">Banner Image</label>
                   <input
                     type="file"
                     className="file-input w-full h-11.5 rounded-xl text-gray-400 text-lg border focus:border-0 outline-primary"
                     {...register("bannerImage")}
                   />
-
-                  <label className="font-medium">Membership Fee ($)</label>
+                  <label className="font-medium">Max Attendees</label>
                   <input
                     type="number"
-                    defaultValue={membershipFee}
+                    defaultValue={maxAttendees}
                     className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
-                    {...register("membershipFee", {
-                      required: "Membership Fee is required",
-                      min: { value: 0, message: "Fee must be positive" },
+                    {...register("maxAttendees", {
+                      required: "Max Attendees is required",
+                      min: {
+                        value: 1,
+                        message: "Max attendee  must be at least 1.",
+                      },
                     })}
                   />
-                  {errors.membershipFee && (
+                  {errors.maxAttendees && (
                     <p className="text-sm text-red-500 mt-1">
-                      {errors.membershipFee.message}
+                      {errors.maxAttendees.message}
                     </p>
+                  )}
+
+                  <div className="flex flex-col gap-2">
+                    <label className="font-medium">Paid Event</label>
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-primary h-8 w-13"
+                      defaultChecked={isPaid}
+                      onChange={(e) => setIsPaidCheck(e.target.checked)}
+                    />
+                  </div>
+
+                  {isPaidCheck && (
+                    <>
+                      <label className="font-medium">Event Fee ($)</label>
+                      <input
+                        type="number"
+                        defaultValue={eventFee}
+                        className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
+                        {...register("eventFee", {
+                          required: "Event Fee is required",
+                          min: { value: 1, message: "Fee must be positive" },
+                        })}
+                      />
+                      {errors.eventFee && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.eventFee.message}
+                        </p>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
@@ -207,7 +292,7 @@ const EditClub = () => {
                     <p className="loading loading-spinner text-success"></p>
                   </div>
                 ) : (
-                  "Update Club"
+                  "Update Event"
                 )}
               </button>
             </fieldset>
@@ -218,4 +303,4 @@ const EditClub = () => {
   );
 };
 
-export default EditClub;
+export default EditEvent;

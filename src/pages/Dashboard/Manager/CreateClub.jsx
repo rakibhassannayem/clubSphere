@@ -125,7 +125,7 @@ const CreateClub = () => {
                   <textarea
                     type="text"
                     placeholder="Write club description here..."
-                    className="input w-full h-20 py-3 rounded-xl focus:border-0 outline-primary text-lg"
+                    className="input w-full h-20 py-3 rounded-xl focus:border-0 outline-primary text-lg resize-none whitespace-pre-wrap"
                     {...register("description", {
                       required: "Description is required",
                     })}
@@ -198,7 +198,9 @@ const CreateClub = () => {
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
                 {isPending ? (
-                  <p className="loading loading-spinner text-success"></p>
+                  <div>
+                    <p className="loading loading-spinner text-success"></p>
+                  </div>
                 ) : (
                   "Create Club"
                 )}
