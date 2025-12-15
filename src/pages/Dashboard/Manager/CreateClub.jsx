@@ -16,6 +16,7 @@ const CreateClub = () => {
   const {
     isPending,
     isError,
+    isLoading,
     mutateAsync,
     reset: mutationReset,
   } = useMutation({
@@ -72,7 +73,7 @@ const CreateClub = () => {
     }
   };
 
-  if (isPending) return <Loading />;
+  if (isLoading) return <Loading />;
 
   if (isError) return <ErrorPage />;
 
@@ -193,6 +194,7 @@ const CreateClub = () => {
 
               <button
                 type="submit"
+                disabled={isPending}
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
                 {isPending ? (

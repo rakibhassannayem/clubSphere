@@ -1,8 +1,22 @@
 import React from "react";
 import { FaSortAmountUp } from "react-icons/fa";
 import { FiFilter } from "react-icons/fi";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import EventCard from "../../components/Cards/EventCard";
+import LoadingSkeleton from "../../components/Shared/LoadingSkeleton/LoadingSkeleton";
 
 const Events = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: events = [], isLoading } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/events");
+      return res.data;
+    },
+  });
+  
   return (
     <div>
       <div className="bg-base-200 py-10 text-center">
@@ -63,8 +77,27 @@ const Events = () => {
       </div>
       <div className="container mx-auto">
         <p className="text-accent text-lg my-3">
-          Showing <span className="font-bold text-secondary">0</span> events
+          Showing{" "}
+          <span className="font-bold text-secondary">{events?.length}</span>{" "}
+          events
         </p>
+
+        {isLoading ? (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </div>
+        ) : events.length !== 0 ? (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+            {events.map((event) => (
+              <EventCard key={event._id} event={event} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-2xl mt-10">No events found!</p>
+        )}
       </div>
     </div>
   );

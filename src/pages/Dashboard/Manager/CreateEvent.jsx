@@ -8,6 +8,7 @@ import Loading from "../../../components/Shared/Loading/Loading";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { imageUpload } from "../../../utils";
 
 const CreateEvent = () => {
   const [isPaid, setIsPaid] = useState(false);
@@ -57,18 +58,23 @@ const CreateEvent = () => {
       description,
       club,
       eventDate,
+      bannerImage,
       eventFee,
     } = data;
+    const imageFile = bannerImage[0];
 
-    const selectedClub = clubs.find(c => c._id === club);
+    const selectedClub = clubs.find((c) => c._id === club);
 
     try {
+      const imageURL = await imageUpload(imageFile);
       const eventData = {
+        bannerImage: imageURL,
         clubId: club,
         clubName: selectedClub?.clubName || "",
+        category: selectedClub?.category || "",
         title,
         description,
-        eventDate,
+        eventDate: new Date(eventDate).toISOString(),
         location,
         isPaid: isPaid,
         eventFee: Number(eventFee),
@@ -84,7 +90,7 @@ const CreateEvent = () => {
     }
   };
 
-  if (isLoading || isPending) return <Loading />;
+  if (isLoading) return <Loading />;
   if (isError) return <ErrorPage />;
 
   return (
@@ -172,6 +178,35 @@ const CreateEvent = () => {
                     </p>
                   )}
 
+                  <label className="font-medium">Event Date</label>
+                  <input
+                    type="date"
+                    className="input w-full py-5.5 rounded-xl focus:border-0 outline-primary text-lg"
+                    min={today}
+                    {...register("eventDate", {
+                      required: "Event Date is required",
+                    })}
+                  />
+                  {errors.eventDate && (
+                    <span className="text-sm text-red-500">
+                      {errors.eventDate.message}
+                    </span>
+                  )}
+
+                  <label className="font-medium">Banner Image</label>
+                  <input
+                    type="file"
+                    className="file-input w-full h-11.5 rounded-xl text-gray-400 text-lg border focus:border-0 outline-primary"
+                    {...register("bannerImage", {
+                      required: "Banner image is required",
+                    })}
+                  />
+                  {errors.bannerImage && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.bannerImage.message}
+                    </p>
+                  )}
+
                   <div className="flex flex-col gap-2">
                     <label className="font-medium">Paid Event</label>
                     <input
@@ -201,26 +236,12 @@ const CreateEvent = () => {
                       )}
                     </>
                   )}
-
-                  <label className="font-medium">Event Date</label>
-                  <input
-                    type="date"
-                    className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
-                    min={today}
-                    {...register("eventDate", {
-                      required: "Event Date is required",
-                    })}
-                  />
-                  {errors.eventDate && (
-                    <span className="text-sm text-red-500">
-                      {errors.eventDate.message}
-                    </span>
-                  )}
                 </div>
               </div>
 
               <button
                 type="submit"
+                disabled={isPending}
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
                 {isPending ? (
