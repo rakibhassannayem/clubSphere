@@ -28,6 +28,8 @@ import ManagerRoutes from "./ManagerRoutes";
 import AdminRoutes from "./AdminRoutes";
 import MemberRoutes from "./MemberRoutes";
 import CreateEvent from "../pages/Dashboard/Manager/CreateEvent";
+import EventDetails from "../pages/Events/EventDetails";
+import EditClub from "../pages/Dashboard/Manager/EditClub";
 
 export const router = createBrowserRouter([
   {
@@ -49,11 +51,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/events",
-        element: (
-          <PrivateRoutes>
-            <Events />
-          </PrivateRoutes>
-        ),
+        Component: Events,
+      },
+      {
+        path: "/event-details/:id",
+        Component: EventDetails,
       },
       {
         path: "/login",
@@ -126,6 +128,14 @@ export const router = createBrowserRouter([
         element: (
           <ManagerRoutes>
             <CreateClub />
+          </ManagerRoutes>
+        ),
+      },
+      {
+        path: "edit-club/:id",
+        element: (
+          <ManagerRoutes>
+            <EditClub />
           </ManagerRoutes>
         ),
       },

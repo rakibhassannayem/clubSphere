@@ -9,7 +9,6 @@ const EventCard = ({ event }) => {
     title,
     clubName,
     category,
-    description,
     location,
     bannerImage,
     eventFee,
@@ -20,6 +19,7 @@ const EventCard = ({ event }) => {
     day: "2-digit",
     month: "short",
   });
+  
   return (
     <Link
       to={`/event-details/${_id}`}
@@ -41,7 +41,6 @@ const EventCard = ({ event }) => {
         </span>
 
         <div className="text-white font-bold text-lg absolute bottom-3 left-3">
-          
           {date}
         </div>
 
@@ -51,12 +50,11 @@ const EventCard = ({ event }) => {
         </div>
       </figure>
       <div className="p-3">
-        <span className="badge bg-orange-50 text-orange-400">
-          {category}
-        </span>
+        <span className="badge bg-orange-50 text-orange-400">{category}</span>
         <h2 className="card-title font-semibold text-xl mt-2">{title}</h2>
-        <p className="text-accent my-2">by <span className="text-primary">{clubName}</span></p>
-        <p className="text-accent my-2">{description}</p>
+        <p className="text-accent my-2">
+          by <span className="text-primary">{clubName}</span>
+        </p>
         <p className="text-accent flex items-center gap-1">
           <IoLocationOutline />
           {location}

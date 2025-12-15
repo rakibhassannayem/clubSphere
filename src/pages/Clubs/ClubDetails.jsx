@@ -37,6 +37,7 @@ const ClubDetails = () => {
 
   const handleJoinClub = () => {
     const paymentInfo = {
+      type: 'membership',
       clubId: _id,
       clubName,
       category,

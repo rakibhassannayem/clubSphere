@@ -48,11 +48,15 @@ const ManagerClubCard = ({ club }) => {
             <IoLocationOutline />
             {location}
           </div>
-          <div>
-            {membershipFee === 0 ? "FREE" : `$ ${membershipFee}/mo`}
-          </div>
+          <div>{membershipFee === 0 ? "FREE" : `$ ${membershipFee}/mo`}</div>
         </div>
-        <Link className="btn btn-outline text-primary rounded-lg text-lg"><FiEdit />Edit Club</Link>
+        <Link
+          to={`/dashboard/edit-club/${_id}`}
+          className="btn btn-outline text-primary rounded-lg text-lg"
+        >
+          <FiEdit />
+          Edit Club
+        </Link>
       </div>
     </div>
   );
