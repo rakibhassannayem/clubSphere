@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading/Loading";
 import { FiUsers } from "react-icons/fi";
@@ -17,6 +17,7 @@ const EventDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const { data: event = [], isLoading } = useQuery({
     queryKey: ["event", id],
@@ -76,6 +77,9 @@ const EventDetails = () => {
       confirmButtonText: "Yes, I'll register!",
     }).then((result) => {
       if (result.isConfirmed) {
+        if (!user) {
+          return navigate("/login");
+        }
         axiosSecure
           .post("/create-checkout-session", paymentInfo)
           .then((res) => {

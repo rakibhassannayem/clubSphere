@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading/Loading";
 import { FiUsers } from "react-icons/fi";
@@ -14,6 +14,7 @@ const ClubDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const { data: club = [], isLoading } = useQuery({
     queryKey: ["club", id],
@@ -61,6 +62,9 @@ const ClubDetails = () => {
       confirmButtonText: "Yes, I'll join!",
     }).then((result) => {
       if (result.isConfirmed) {
+        if (!user) {
+          return navigate("/login");
+        }
         axiosSecure
           .post("/create-checkout-session", paymentInfo)
           .then((res) => {
