@@ -63,7 +63,9 @@ const ManagerOverview = () => {
               <p className="text-lg text-accent">Total Events</p>
               <MdOutlineEventAvailable size={24} className="text-purple-500" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">{stats.totalEvents}</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              {stats.totalEvents}
+            </h2>
           </div>
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
@@ -71,7 +73,9 @@ const ManagerOverview = () => {
               <p className="text-lg text-accent">Revenue</p>
               <MdPayment size={24} className="text-primary" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">Banaaa</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              ${stats.revenue}
+            </h2>
           </div>
         </div>
       </div>

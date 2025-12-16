@@ -65,11 +65,6 @@ const ClubDetails = () => {
           .post("/create-checkout-session", paymentInfo)
           .then((res) => {
             window.location.href = res.data.url;
-            // Swal.fire({
-            //   title: "Joined!",
-            //   text: "You have been joined to the club.",
-            //   icon: "success",
-            // });
           });
       }
     });

@@ -22,7 +22,7 @@ const PaymentSuccess = () => {
             Payment Successful!
           </h1>
           <p className="text-accent text-lg">
-            Thank you for joining. Please wait for the manager to aprrove you.
+            Thank you. Please wait for the manager to aprrove you.
           </p>
           <Link
             to={"/dashboard/member-clubs"}

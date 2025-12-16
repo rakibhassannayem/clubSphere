@@ -24,8 +24,6 @@ const EventsManagement = () => {
     },
   });
 
-  console.log(events)
-
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -96,10 +94,12 @@ const EventsManagement = () => {
             <tbody>
               {events.map((event) => (
                 <tr key={event._id}>
-                  <td>{event.title}</td>
+                  <td>{event.eventTitle}</td>
                   <td>{event.clubName}</td>
                   <td>
-                    {new Date(event.eventDate).toISOString().split("T")[0]}
+                    {event.eventDate
+                      ? new Date(event.eventDate).toLocaleDateString("en-CA")
+                      : "—"}
                   </td>
                   <td className="text-secondary">{event.location}</td>
                   <td>

@@ -11,7 +11,7 @@ const EventRegistrations = () => {
   const { data: members = [], isLoading } = useQuery({
     queryKey: ["members", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/club-members/${user?.email}`);
+      const res = await axiosSecure.get(`/registered-members`);
       return res.data;
     },
   });
@@ -37,7 +37,7 @@ const EventRegistrations = () => {
       ) : members.length !== 0 ? (
         <div className="overflow-x-auto bg-white border border-base-300 rounded-2xl">
           <h1 className="flex items-center gap-1 text-2xl text-secondary font-bold bg-white p-3 pb-0">
-            <HiOutlineClipboardList /> Registrations (8)
+            <HiOutlineClipboardList /> Registrations ({members.length})
           </h1>
           <table className="table">
             {/* head */}
@@ -54,8 +54,8 @@ const EventRegistrations = () => {
             <tbody>
               {members.map((member) => (
                 <tr key={member._id}>
-                  <td>John Doe</td>
-                  <td>john@example.com</td>
+                  <td>{member.memberName}</td>
+                  <td>{member.memberEmail}</td>
 
                   <td className="text-secondary">Photography Workshop</td>
                   <td className="text-secondary">Photography Masters</td>
@@ -66,12 +66,15 @@ const EventRegistrations = () => {
                         : "bg-orange-600"
                     }`}
                   >
-                    registered/cancel
+                    {member.status}
                   </td>
 
                   <td>
-                    2024-03-20
-                    {/* {new Date(member.joinedAt).toISOString().split("T")[0]} */}
+                    {member.registeredAt
+                      ? new Date(member.registeredAt).toLocaleDateString(
+                          "en-CA"
+                        )
+                      : "—"}
                   </td>
                 </tr>
               ))}
@@ -80,7 +83,7 @@ const EventRegistrations = () => {
         </div>
       ) : (
         <p className="text-center text-2xl mt-10">
-          You haven't joined any club yet!
+          No one registered to your events yet!
         </p>
       )}
     </div>

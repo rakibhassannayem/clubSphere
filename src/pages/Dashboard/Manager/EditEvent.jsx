@@ -35,7 +35,7 @@ const EditEvent = () => {
   });
 
   const {
-    title,
+    eventTitle,
     location,
     description,
     club,
@@ -77,7 +77,7 @@ const EditEvent = () => {
 
   const handleUpdateEvent = async (data) => {
     const {
-      title,
+      eventTitle,
       location,
       description,
       club,
@@ -97,7 +97,7 @@ const EditEvent = () => {
       }
 
       const eventData = {
-        title,
+        eventTitle,
         bannerImage: imageURL,
         clubId: club,
         clubName: selectedClub.clubName,
@@ -137,16 +137,16 @@ const EditEvent = () => {
                   <label className="font-medium">Event Title</label>
                   <input
                     type="text"
-                    defaultValue={title}
+                    defaultValue={eventTitle}
                     placeholder="Enter event title"
                     className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
-                    {...register("title", {
+                    {...register("eventTitle", {
                       required: "Event title is required",
                     })}
                   />
-                  {errors.title && (
+                  {errors.eventTitle && (
                     <span className="text-sm text-red-500">
-                      {errors.title.message}
+                      {errors.eventTitle.message}
                     </span>
                   )}
 

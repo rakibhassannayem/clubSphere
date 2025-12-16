@@ -15,7 +15,7 @@ const ClubMembers = () => {
   } = useQuery({
     queryKey: ["members", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/club-members/${user?.email}`);
+      const res = await axiosSecure("/club-members");
       return res.data;
     },
   });
@@ -80,17 +80,21 @@ const ClubMembers = () => {
                   </td>
                   <td>{member.memberEmail}</td>
                   <td className="text-secondary">{member.clubName}</td>
-                  <td
-                    className={`badge text-white font-bold mt-2 ${
-                      member.status === "active"
-                        ? "bg-primary"
-                        : "bg-orange-500"
-                    }`}
-                  >
-                    {member.status}
+                  <td>
+                    <div
+                      className={`badge text-white font-bold mt-2 ${
+                        member.status === "active"
+                          ? "bg-primary"
+                          : "bg-orange-500"
+                      }`}
+                    >
+                      {member.status}
+                    </div>
                   </td>
                   <td>
-                    {new Date(member.joinedAt).toISOString().split("T")[0]}
+                    {member.joinedAt
+                      ? new Date(member.joinedAt).toLocaleDateString("en-CA")
+                      : "—"}
                   </td>
                   <td>
                     <select

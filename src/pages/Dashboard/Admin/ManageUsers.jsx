@@ -95,7 +95,9 @@ const ManageUsers = () => {
                     {user.role}
                   </td>
                   <td>
-                    {new Date(user.createdAt).toISOString().split("T")[0]}
+                    {user.createdAt
+                      ? new Date(user.createdAt).toLocaleDateString("en-CA")
+                      : "—"}
                   </td>
                   <td>
                     <select

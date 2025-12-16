@@ -27,7 +27,7 @@ const EventDetails = () => {
   });
   const {
     _id,
-    title,
+    eventTitle,
     clubName,
     bannerImage,
     category,
@@ -37,6 +37,7 @@ const EventDetails = () => {
     location,
     registrations,
     managerEmail,
+    maxAttendees,
   } = event || {};
   const date = new Date(eventDate).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -51,12 +52,12 @@ const EventDetails = () => {
 
   const handleRegistration = () => {
     const paymentInfo = {
-      paymentType: "eventfee",
-      clubId: _id,
-      clubName,
-      managerEmail,
+      paymentType: "eventFee",
+      eventId: _id,
+      eventTitle,
       description,
       bannerImage,
+      managerEmail,
       amount: Number(eventFee),
       member: {
         name: user?.displayName,
@@ -72,7 +73,7 @@ const EventDetails = () => {
       showCancelButton: true,
       confirmButtonColor: "#0e816a",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, I'll join!",
+      confirmButtonText: "Yes, I'll register!",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
@@ -116,7 +117,7 @@ const EventDetails = () => {
               {eventFee === 0 ? "free" : <span>${eventFee}</span>}
             </span>
 
-            <h1 className="text-5xl font-bold">{title}</h1>
+            <h1 className="text-5xl font-bold">{eventTitle}</h1>
 
             <div className="flex gap-5 text-white font-medium mt-3">
               <div className="flex items-center gap-1">
@@ -197,14 +198,42 @@ const EventDetails = () => {
           <p className="text-accent">
             {eventFee === 0 ? "No registration fee" : "per person"}
           </p>
-          <button
-            onClick={handleRegistration}
-            className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
-          >
-            {eventFee === 0
-              ? "Registration for Free"
-              : `Registration for $${eventFee}`}
-          </button>
+          <div className="text-accent flex justify-between">
+            <p>Spots filled</p>
+            <span>
+              {registrations}/{maxAttendees}
+            </span>
+          </div>
+          <progress
+            className="progress progress-primary"
+            value={registrations}
+            max={maxAttendees}
+          ></progress>
+
+          {registrations === maxAttendees ? (
+            <button
+              onClick={() =>
+                Swal.fire({
+                  title: "Sorry!",
+                  text: "Registration is full",
+                  icon: "error",
+                  confirmButtonColor: "#0e816a",
+                })
+              }
+              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
+            >
+              Registration Full
+            </button>
+          ) : (
+            <button
+              onClick={handleRegistration}
+              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
+            >
+              {eventFee === 0
+                ? "Registration for Free"
+                : `Registration for $${eventFee}`}
+            </button>
+          )}
 
           <div className="divider"></div>
           <h2 className="text-start font-bold">Event Details</h2>

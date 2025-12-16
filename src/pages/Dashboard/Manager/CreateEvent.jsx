@@ -53,7 +53,7 @@ const CreateEvent = () => {
 
   const handleCreateEvent = async (data) => {
     const {
-      title,
+      eventTitle,
       location,
       description,
       club,
@@ -73,7 +73,7 @@ const CreateEvent = () => {
         clubId: club,
         clubName: selectedClub?.clubName || "",
         category: selectedClub?.category || "",
-        title,
+        eventTitle,
         description,
         eventDate: new Date(eventDate).toISOString(),
         location,
@@ -112,13 +112,13 @@ const CreateEvent = () => {
                     type="text"
                     placeholder="Enter event title"
                     className="input w-full py-6 rounded-xl focus:border-0 outline-primary text-lg"
-                    {...register("title", {
+                    {...register("eventTitle", {
                       required: "Event title is required",
                     })}
                   />
-                  {errors.title && (
+                  {errors.eventTitle && (
                     <span className="text-sm text-red-500">
-                      {errors.title.message}
+                      {errors.eventTitle.message}
                     </span>
                   )}
 
