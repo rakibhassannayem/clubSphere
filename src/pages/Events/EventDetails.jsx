@@ -31,12 +31,12 @@ const EventDetails = () => {
     clubName,
     bannerImage,
     category,
-    membershipFee,
     eventFee,
     eventDate,
     description,
     location,
     registrations,
+    managerEmail,
   } = event || {};
   const date = new Date(eventDate).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -51,13 +51,13 @@ const EventDetails = () => {
 
   const handleRegistration = () => {
     const paymentInfo = {
-      type: "event",
+      paymentType: "eventfee",
       clubId: _id,
       clubName,
-      category,
-      membershipFee,
+      managerEmail,
       description,
       bannerImage,
+      amount: Number(eventFee),
       member: {
         name: user?.displayName,
         email: user?.email,

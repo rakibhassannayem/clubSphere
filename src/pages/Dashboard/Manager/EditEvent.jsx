@@ -106,7 +106,7 @@ const EditEvent = () => {
         eventDate,
         location,
         isPaid: isPaidCheck,
-        eventFee: isPaid ? Number(eventFee) : 0,
+        eventFee: isPaidCheck ? Number(eventFee) : 0,
         maxAttendees: Number(maxAttendees),
         updatedAt: new Date(),
       };

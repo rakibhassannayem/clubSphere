@@ -32,18 +32,18 @@ const ClubDetails = () => {
     description,
     location,
     createdAt,
-    managerEmail
+    managerEmail,
   } = club || {};
 
   const handleJoinClub = () => {
     const paymentInfo = {
-      type: 'membership',
+      paymentType: "membership",
       clubId: _id,
       clubName,
-      category,
-      membershipFee,
       description,
       bannerImage,
+      managerEmail,
+      amount: Number(membershipFee),
       member: {
         name: user?.displayName,
         email: user?.email,
