@@ -25,10 +25,10 @@ const PaymentSuccess = () => {
             Thank you. Please wait for the manager to aprrove you.
           </p>
           <Link
-            to={"/dashboard/member-clubs"}
+            to={"/"}
             className="btn btn-primary text-white rounded-lg text-lg"
           >
-            Go to My Clubs
+            Back to Home
           </Link>
         </div>
       </div>

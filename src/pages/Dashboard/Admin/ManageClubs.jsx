@@ -65,7 +65,7 @@ const ManageClubs = () => {
             <thead>
               <tr>
                 <th>Club Name</th>
-                <th>Manager</th>
+                <th>Manager Email</th>
                 <th>Category</th>
                 <th>Members</th>
                 <th>Fee</th>

@@ -48,7 +48,7 @@ const EventRegistrations = () => {
                 <th>Event</th>
                 <th>Club</th>
                 <th>Status</th>
-                <th>Registered</th>
+                <th>Registered At</th>
               </tr>
             </thead>
             <tbody>
@@ -57,8 +57,8 @@ const EventRegistrations = () => {
                   <td>{member.memberName}</td>
                   <td>{member.memberEmail}</td>
 
-                  <td className="text-secondary">Photography Workshop</td>
-                  <td className="text-secondary">Photography Masters</td>
+                  <td className="text-secondary">{member.eventTitle}</td>
+                  <td className="text-secondary">{member.clubName}</td>
                   <td
                     className={`badge text-white font-bold mt-2 ${
                       member.status === "registered"

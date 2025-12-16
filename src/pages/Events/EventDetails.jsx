@@ -29,6 +29,7 @@ const EventDetails = () => {
   const {
     _id,
     eventTitle,
+    clubId,
     clubName,
     bannerImage,
     category,
@@ -59,6 +60,8 @@ const EventDetails = () => {
       description,
       bannerImage,
       managerEmail,
+      clubId,
+      clubName,
       amount: Number(eventFee),
       member: {
         name: user?.displayName,

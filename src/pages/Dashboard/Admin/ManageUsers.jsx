@@ -62,7 +62,7 @@ const ManageUsers = () => {
             {/* head */}
             <thead>
               <tr>
-                <th>User</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Joined</th>

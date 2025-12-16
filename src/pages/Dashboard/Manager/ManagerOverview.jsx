@@ -70,7 +70,7 @@ const ManagerOverview = () => {
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
-              <p className="text-lg text-accent">Revenue</p>
+              <p className="text-lg text-accent">Total payments</p>
               <MdPayment size={24} className="text-primary" />
             </div>
             <h2 className="text-secondary font-semibold text-3xl">

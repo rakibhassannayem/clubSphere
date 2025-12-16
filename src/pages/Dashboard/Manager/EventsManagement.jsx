@@ -19,7 +19,7 @@ const EventsManagement = () => {
   } = useQuery({
     queryKey: ["events", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/manager-events?email=${user?.email}`);
+      const res = await axiosSecure("/manager-events");
       return res.data;
     },
   });

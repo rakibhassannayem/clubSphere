@@ -62,7 +62,7 @@ const ClubMembers = () => {
             {/* head */}
             <thead>
               <tr>
-                <th>Member</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Club</th>
                 <th>Status</th>

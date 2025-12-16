@@ -7,7 +7,6 @@ import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingS
 
 const AdminOverview = () => {
   const axiosSecure = useAxiosSecure();
-  
 
   const { data: stats = {}, isLoading } = useQuery({
     queryKey: ["admin-overview"],
@@ -37,7 +36,7 @@ const AdminOverview = () => {
         </p>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Total Users</p>
@@ -53,15 +52,19 @@ const AdminOverview = () => {
               <p className="text-lg text-accent">Total Clubs</p>
               <LuBuilding2 size={24} className="text-green-500" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">{stats.totalClubs}</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              {stats.totalClubs}
+            </h2>
           </div>
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
-              <p className="text-lg text-accent">Active Members</p>
+              <p className="text-lg text-accent">Total Memberships</p>
               <FiUserCheck size={24} className="text-purple-500" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">{stats.activeMembers}</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              {stats.totalMemberships}
+            </h2>
           </div>
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
@@ -69,15 +72,19 @@ const AdminOverview = () => {
               <p className="text-lg text-accent">Total Events</p>
               <MdEventNote size={24} className="text-orange-500" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">thik kor</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              {stats.totalEvents}
+            </h2>
           </div>
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
-              <p className="text-lg text-accent">Revenue</p>
+              <p className="text-lg text-accent">Total Payments Amount</p>
               <MdPayment size={24} className="text-primary" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">thik kor</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              ${stats.revenue}
+            </h2>
           </div>
 
           <div className="bg-white border border-base-300 shadow rounded-xl p-5">
@@ -85,7 +92,9 @@ const AdminOverview = () => {
               <p className="text-lg text-accent">Pending Clubs</p>
               <MdPendingActions size={24} className="text-orange-400" />
             </div>
-            <h2 className="text-secondary font-semibold text-3xl">{stats.pendingClubs}</h2>
+            <h2 className="text-secondary font-semibold text-3xl">
+              {stats.pendingClubs}
+            </h2>
           </div>
         </div>
       </div>
