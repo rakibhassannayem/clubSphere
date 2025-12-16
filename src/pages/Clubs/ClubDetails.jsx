@@ -36,6 +36,14 @@ const ClubDetails = () => {
     managerEmail,
   } = club || {};
 
+  const { data: membershipStatus, isLoading: memberLoading } = useQuery({
+    queryKey: ["is-member", id, user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure(`/is-member/${id}`);
+      return res.data;
+    },
+  });
+
   const handleJoinClub = () => {
     const paymentInfo = {
       paymentType: "membership",
@@ -74,7 +82,7 @@ const ClubDetails = () => {
     });
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || memberLoading) return <Loading />;
   return (
     <div className="card bg-base-200">
       <figure className="relative rounded-none">
@@ -224,12 +232,30 @@ const ClubDetails = () => {
           <p className="text-accent">
             {membershipFee === 0 ? "No membership fee" : "per month"}
           </p>
-          <button
-            onClick={handleJoinClub}
-            className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
-          >
-            Join Club
-          </button>
+
+          {membershipStatus ? (
+            <button
+              onClick={() =>
+                Swal.fire({
+                  title: "Oops!",
+                  text: "You Have Already Joined this club",
+
+                  confirmButtonColor: "#0e816a",
+                })
+              }
+              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
+            >
+              Already Joined
+            </button>
+          ) : (
+            <button
+              onClick={handleJoinClub}
+              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
+            >
+              Join Club
+            </button>
+          )}
+
           <p className="text-accent text-sm mt-2">
             Join instantly with no commitment
           </p>

@@ -9,7 +9,7 @@ const ManagerOverview = () => {
   const axiosSecure = useAxiosSecure();
 
   const { data: stats = {}, isLoading } = useQuery({
-    queryKey: ["admin-overview"],
+    queryKey: ["manager-overview"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/manager/overview`);
       return res.data;

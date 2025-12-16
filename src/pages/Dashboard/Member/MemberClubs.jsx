@@ -10,9 +10,9 @@ const MemberClubs = () => {
   const { user } = useAuth();
 
   const { data: clubs = [], isLoading } = useQuery({
-    queryKey: ["clubs", user?.email],
+    queryKey: ["member-clubs", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/member-clubs/${user?.email}`);
+      const res = await axiosSecure("/member-clubs");
       return res.data;
     },
   });
