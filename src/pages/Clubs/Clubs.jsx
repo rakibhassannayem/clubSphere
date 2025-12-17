@@ -4,14 +4,25 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import ClubCard from "../../components/Cards/ClubCard";
 import LoadingSkeleton from "../../components/Shared/LoadingSkeleton/LoadingSkeleton";
+import { useState } from "react";
 
 const Clubs = () => {
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [sort, setSort] = useState("");
+
   const axiosSecure = useAxiosSecure();
 
   const { data: clubs = [], isLoading } = useQuery({
-    queryKey: ["clubs"],
+    queryKey: ["clubs", search, category, sort],
     queryFn: async () => {
-      const res = await axiosSecure.get("/clubs");
+      const res = await axiosSecure.get("/clubs", {
+        params: {
+          search,
+          category,
+          sort,
+        },
+      });
       return res.data;
     },
   });
@@ -26,6 +37,7 @@ const Clubs = () => {
         </p>
 
         <div className="mt-5 w-8/12 mx-auto grid grid-cols-1 sm:grid-cols-8 lg:grid-cols-14 gap-3">
+          {/* search */}
           <label className="input h-11 col-span-1 sm:col-span-5 lg:col-span-8 w-full outline-none rounded-xl">
             <svg
               className="h-[1em] opacity-50"
@@ -43,33 +55,43 @@ const Clubs = () => {
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input type="search" required placeholder="Search" />
+            <input
+              type="search"
+              onChange={(e) => setSearch(e.target.value)}
+              required
+              placeholder="Search"
+            />
           </label>
 
+          {/* filter */}
           <label className="select h-11 col-span-1 sm:col-span-3 lg:col-span-3 outline-none rounded-xl">
             <span className="label">
               <FiFilter />
             </span>
-            <select defaultValue={""} name="filter">
-              <option value="" disabled>
-                All
-              </option>
+            <select
+              defaultValue={""}
+              onChange={(e) => setCategory(e.target.value)}
+              name="filter"
+            >
+              <option value="">All</option>
               <option value="Photography">Photography</option>
               <option value="Sports">Sports</option>
               <option value="Tech">Tech</option>
+              <option value="Music">Music</option>
+              <option value="Outdoor">Outdoor</option>
             </select>
           </label>
 
+          {/* sort */}
           <label className="select h-11 col-span-1 sm:col-span-8 lg:col-span-3 outline-none rounded-xl">
             <span className="label">
               <FaSortAmountUp />
             </span>
-            <select defaultValue={""} name="sort">
-              <option value="" disabled>
-                Most Members
-              </option>
-              <option value="Lowest Fee">Lowest Fee</option>
-              <option value="Highest Fee">Highest Fee</option>
+            <select defaultValue="" onChange={(e) => setSort(e.target.value)}>
+              <option value="">Default</option>
+              <option value="mostMembers">Most Members</option>
+              <option value="lowestFee">Lowest Fee</option>
+              <option value="highestFee">Highest Fee</option>
             </select>
           </label>
         </div>

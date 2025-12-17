@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const Cta = () => {
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="container mx-auto px-4 py-15">
       <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#1a8567] via-[#258d92] to-[#1e7eb0] px-8 py-16 text-center text-white shadow-xl">
         {/* Decorative Top Left Icon */}
         <div className="absolute left-6 top-6 flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">

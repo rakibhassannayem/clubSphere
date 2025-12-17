@@ -16,7 +16,7 @@ const ManageClubs = () => {
   } = useQuery({
     queryKey: ["clubs", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/clubs`);
+      const res = await axiosSecure(`/admin-clubs`);
       return res.data;
     },
   });

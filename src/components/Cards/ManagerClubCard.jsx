@@ -63,7 +63,7 @@ const ManagerClubCard = ({ club }) => {
             className="btn btn-outline text-primary rounded-lg text-lg flex-1"
           >
             <HiOutlineExternalLink />
-            view
+            View
           </Link>
         </div>
       </div>
