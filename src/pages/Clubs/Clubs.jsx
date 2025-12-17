@@ -75,7 +75,7 @@ const Clubs = () => {
         </div>
       </div>
       <div className="container mx-auto px-3 sm:px-0">
-        <p className="text-accent text-lg my-3">
+        <p className="text-accent text-lg my-3 px-3">
           Showing{" "}
           <span className="font-bold text-secondary">{clubs?.length}</span>{" "}
           clubs
@@ -89,7 +89,7 @@ const Clubs = () => {
             <LoadingSkeleton />
           </div>
         ) : clubs.length !== 0 ? (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5 px-3">
             {clubs.map((club) => (
               <ClubCard key={club._id} club={club} />
             ))}

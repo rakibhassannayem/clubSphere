@@ -11,19 +11,46 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `text-lg transition border-primary ${
+              isActive
+                ? "text-primary font-bold border-b-2"
+                : "hover:border-b-2 text-primaryprimary"
+            }`
+          }
+          to={"/"}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/dashboard/overview"}>Dashboard</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `text-lg transition border-primary ${
+              isActive
+                ? "text-primary font-bold border-b-2"
+                : "hover:border-b-2 text-primaryprimary"
+            }`
+          }
+          to={"/clubs"}
+        >
+          Clubs
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/clubs"}>Clubs</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/dashboard/create-club"}>Create Club</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/events"}>Events</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `text-lg transition border-primary ${
+              isActive
+                ? "text-primary font-bold border-b-2"
+                : "hover:border-b-2 text-primaryprimary"
+            }`
+          }
+          to={"/events"}
+        >
+          Events
+        </NavLink>
       </li>
       {!user && (
         <div className="sm:hidden space-y-2">

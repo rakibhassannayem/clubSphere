@@ -76,7 +76,7 @@ const Events = () => {
         </div>
       </div>
       <div className="container mx-auto">
-        <p className="text-accent text-lg my-3">
+        <p className="text-accent text-lg my-3 px-3">
           Showing{" "}
           <span className="font-bold text-secondary">{events?.length}</span>{" "}
           events
@@ -90,7 +90,7 @@ const Events = () => {
             <LoadingSkeleton />
           </div>
         ) : events.length !== 0 ? (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5 px-3">
             {events.map((event) => (
               <EventCard key={event._id} event={event} />
             ))}
