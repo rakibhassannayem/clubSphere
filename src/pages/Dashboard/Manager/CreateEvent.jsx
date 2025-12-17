@@ -80,7 +80,7 @@ const CreateEvent = () => {
         eventDate: new Date(eventDate).toISOString(),
         location,
         isPaid: isPaid,
-        eventFee: Number(eventFee),
+        eventFee: isPaid ? Number(eventFee) : 0,
         managerEmail: user.email,
         createdAt: new Date(),
         registrations: 0,

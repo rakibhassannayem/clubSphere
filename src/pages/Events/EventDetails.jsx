@@ -19,7 +19,11 @@ const EventDetails = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const { data: event = [], isLoading } = useQuery({
+  const {
+    data: event = [],
+    isLoading,
+    refetch: eventRefetch,
+  } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => {
       const res = await axiosSecure(`/events/${id}`);
@@ -52,7 +56,11 @@ const EventDetails = () => {
     hour12: true,
   });
 
-  const { data: registeredStatus, isLoading: registerLoading } = useQuery({
+  const {
+    data: registeredStatus,
+    isLoading: registerLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["registeredStatus", id, user?.email],
     queryFn: async () => {
       const res = await axiosSecure(`/is-registered/${id}`);
@@ -78,8 +86,21 @@ const EventDetails = () => {
       },
     };
 
+    const freeInfo = {
+      eventId: _id,
+      eventTitle,
+      clubId,
+      clubName,
+      memberEmail: user?.email,
+      memberName: user?.displayName,
+      managerEmail,
+      transactionId: "N/A",
+      status: "registered",
+      registeredAt: new Date(),
+    };
+
     Swal.fire({
-      title: `Registration fee is $${eventFee}. Are you sure?`,
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -91,11 +112,33 @@ const EventDetails = () => {
         if (!user) {
           return navigate("/login");
         }
-        axiosSecure
-          .post("/create-checkout-session", paymentInfo)
-          .then((res) => {
-            window.location.href = res.data.url;
-          });
+        if (eventFee === 0) {
+          axiosSecure
+            .post("/free-registration", freeInfo)
+            .then(() => {
+              refetch();
+              eventRefetch();
+              Swal.fire({
+                title: "Welcome!",
+                text: `You've successfully joined ${eventTitle}.`,
+                icon: "success",
+                confirmButtonColor: "#0e816a",
+              });
+            })
+            .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: err.code,
+              });
+            });
+        } else {
+          axiosSecure
+            .post("/create-checkout-session", paymentInfo)
+            .then((res) => {
+              window.location.href = res.data.url;
+            });
+        }
       }
     });
   };
