@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading/Loading";
-import { FiUsers } from "react-icons/fi";
-import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
+import { FiCheckCircle } from "react-icons/fi";
+import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineDateRange, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -52,6 +52,14 @@ const EventDetails = () => {
     hour12: true,
   });
 
+  const { data: registeredStatus, isLoading: registerLoading } = useQuery({
+    queryKey: ["registeredStatus", id, user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure(`/is-registered/${id}`);
+      return res.data;
+    },
+  });
+
   const handleRegistration = () => {
     const paymentInfo = {
       paymentType: "eventFee",
@@ -92,7 +100,7 @@ const EventDetails = () => {
     });
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || registerLoading) return <Loading />;
   return (
     <div className="card bg-base-200">
       <figure className="relative rounded-none">
@@ -201,7 +209,6 @@ const EventDetails = () => {
           <span className="text-4xl font-bold">
             {eventFee === 0 ? "FREE" : `$${eventFee}`}
           </span>
-
           <p className="text-accent">
             {eventFee === 0 ? "No registration fee" : "per person"}
           </p>
@@ -216,21 +223,20 @@ const EventDetails = () => {
             value={registrations}
             max={maxAttendees}
           ></progress>
-
-          {registrations === maxAttendees ? (
-            <button
-              onClick={() =>
-                Swal.fire({
-                  title: "Sorry!",
-                  text: "Registration is full",
-                  icon: "error",
-                  confirmButtonColor: "#0e816a",
-                })
-              }
-              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
-            >
-              Registration Full
-            </button>
+          {registeredStatus.isRegistered ? (
+            <div className="flex flex-col items-center mt-3">
+              <div className="bg-primary/12 p-4 rounded-full">
+                <FiCheckCircle size={30} className="text-primary" />
+              </div>
+              <p className="text-lg font-bold">You're registered!</p>
+              <p className="text-accent text-sm mt-2">
+                We'll send you a reminder before the event.
+              </p>
+            </div>
+          ) : registrations === maxAttendees ? (
+            <div className="text-primary font-bold text-lg rounded-lg w-full mt-4">
+              Registration Full !
+            </div>
           ) : (
             <button
               onClick={handleRegistration}
@@ -241,10 +247,8 @@ const EventDetails = () => {
                 : `Registration for $${eventFee}`}
             </button>
           )}
-
           <div className="divider"></div>
           <h2 className="text-start font-bold">Event Details</h2>
-
           <div className="space-y-1 text-primary mt-2">
             <div className="flex items-center gap-1">
               <MdOutlineDateRange />

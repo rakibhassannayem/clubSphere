@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading/Loading";
-import { FiUsers } from "react-icons/fi";
+import { FiCheckCircle, FiUsers } from "react-icons/fi";
 import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
 import { MdOutlineDateRange, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useState } from "react";
@@ -37,7 +37,7 @@ const ClubDetails = () => {
   } = club || {};
 
   const { data: membershipStatus, isLoading: memberLoading } = useQuery({
-    queryKey: ["is-member", id, user?.email],
+    queryKey: ["membershipStatus", id, user?.email],
     queryFn: async () => {
       const res = await axiosSecure(`/is-member/${id}`);
       return res.data;
@@ -234,31 +234,29 @@ const ClubDetails = () => {
           </p>
 
           {membershipStatus.isMember ? (
-            <button
-              onClick={() =>
-                Swal.fire({
-                  title: "Oops!",
-                  text: "You Have Already Joined this club",
-
-                  confirmButtonColor: "#0e816a",
-                })
-              }
-              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
-            >
-              Already Joined
-            </button>
+            <div className="flex flex-col items-center mt-3">
+              <div className="bg-primary/12 p-4 rounded-full">
+                <FiCheckCircle size={30} className="text-primary" />
+              </div>
+              <p className="text-lg font-bold">You're a member!</p>
+              <p className="text-accent text-sm mt-2">
+                Welcome to Indie {clubName}
+              </p>
+            </div>
           ) : (
-            <button
-              onClick={handleJoinClub}
-              className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
-            >
-              Join Club
-            </button>
+            <div>
+              <button
+                onClick={handleJoinClub}
+                className="btn btn-primary text-white font-bold text-lg rounded-lg w-full mt-4"
+              >
+                Join Club
+              </button>
+              <p className="text-accent text-sm mt-2">
+                Join instantly with no commitment
+              </p>
+            </div>
           )}
 
-          <p className="text-accent text-sm mt-2">
-            Join instantly with no commitment
-          </p>
           <div className="divider"></div>
           <div className="space-y-4">
             <div className="flex items-center justify-between text-accent">
