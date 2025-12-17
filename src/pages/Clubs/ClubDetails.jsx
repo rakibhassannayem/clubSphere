@@ -233,7 +233,7 @@ const ClubDetails = () => {
             {membershipFee === 0 ? "No membership fee" : "per month"}
           </p>
 
-          {membershipStatus ? (
+          {membershipStatus.isMember ? (
             <button
               onClick={() =>
                 Swal.fire({

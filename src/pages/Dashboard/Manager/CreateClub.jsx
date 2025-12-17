@@ -8,8 +8,10 @@ import { useMutation } from "@tanstack/react-query";
 import Loading from "../../../components/Shared/Loading/Loading";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 const CreateClub = () => {
+  const [imgLoading, setImgLoading] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -51,8 +53,10 @@ const CreateClub = () => {
       membershipFee,
     } = data;
     const imageFile = bannerImage[0];
+    setImgLoading(true);
     try {
       const imageURL = await imageUpload(imageFile);
+      setImgLoading(false);
       const clubData = {
         bannerImage: imageURL,
         clubName,
@@ -197,7 +201,7 @@ const CreateClub = () => {
                 disabled={isPending}
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                {isPending ? (
+                {isPending || imgLoading ? (
                   <div>
                     <p className="loading loading-spinner text-success"></p>
                   </div>

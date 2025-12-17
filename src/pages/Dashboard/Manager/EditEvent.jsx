@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 const EditEvent = () => {
   const [isPaidCheck, setIsPaidCheck] = useState(false);
+  const [imgLoading, setImgLoading] = useState(false);
   const { id } = useParams();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -28,11 +29,15 @@ const EditEvent = () => {
 
   const { data: event = {}, isLoading } = useQuery({
     queryKey: ["event", id],
+    staleTime: 0,
+    enabled: !!id,
+    refetchOnMount: "always",
     queryFn: async () => {
       const res = await axiosSecure(`/events/${id}`);
       return res.data;
     },
   });
+  // console.log(event)
 
   const {
     eventTitle,
@@ -46,6 +51,7 @@ const EditEvent = () => {
   } = event || {};
 
   useEffect(() => {
+    // console.log(isPaid)
     setIsPaidCheck(isPaid);
   }, [isPaid]);
 
@@ -91,9 +97,10 @@ const EditEvent = () => {
 
     try {
       let imageURL = club?.bannerImage;
-
+      setImgLoading(true);
       if (bannerImage && bannerImage.length > 0) {
         imageURL = await imageUpload(bannerImage[0]);
+        setImgLoading(false);
       }
 
       const eventData = {
@@ -255,7 +262,7 @@ const EditEvent = () => {
                     <input
                       type="checkbox"
                       className="toggle toggle-primary h-8 w-13"
-                      defaultChecked={isPaid}
+                      checked={isPaidCheck && "checked"}
                       onChange={(e) => setIsPaidCheck(e.target.checked)}
                     />
                   </div>
@@ -287,7 +294,7 @@ const EditEvent = () => {
                 disabled={isPending}
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                {isPending ? (
+                {isPending || imgLoading ? (
                   <div>
                     <p className="loading loading-spinner text-success"></p>
                   </div>

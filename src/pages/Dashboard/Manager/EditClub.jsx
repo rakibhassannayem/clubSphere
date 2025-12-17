@@ -7,8 +7,10 @@ import Loading from "../../../components/Shared/Loading/Loading";
 import ErrorPage from "../../ErrorPage/ErrorPage";
 import { useNavigate, useParams } from "react-router";
 import { FaRegEdit } from "react-icons/fa";
+import { useState } from "react";
 
 const EditClub = () => {
+  const [imgLoading, setImgLoading] = useState(false);
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const EditClub = () => {
     onSuccess: () => {
       toast.success("Club updated Successfully!");
       mutationReset();
-      navigate(`/club-details/${id}`);
+      navigate("/dashboard/manager-clubs");
     },
     onError: (error) => {
       toast.error(error);
@@ -61,9 +63,10 @@ const EditClub = () => {
 
     try {
       let imageURL = club?.bannerImage;
-
+      setImgLoading(true);
       if (bannerImage && bannerImage.length > 0) {
         imageURL = await imageUpload(bannerImage[0]);
+        setImgLoading(false);
       }
 
       const clubData = {
@@ -202,7 +205,7 @@ const EditClub = () => {
                 disabled={isPending}
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                {isPending ? (
+                {isPending || imgLoading ? (
                   <div>
                     <p className="loading loading-spinner text-success"></p>
                   </div>

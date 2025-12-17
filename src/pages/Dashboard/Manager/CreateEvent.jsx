@@ -12,6 +12,7 @@ import { imageUpload } from "../../../utils";
 
 const CreateEvent = () => {
   const [isPaid, setIsPaid] = useState(false);
+  const [imgLoading, setImgLoading] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
@@ -65,9 +66,10 @@ const CreateEvent = () => {
     const imageFile = bannerImage[0];
 
     const selectedClub = clubs.find((c) => c._id === club);
-
+    setImgLoading(true);
     try {
       const imageURL = await imageUpload(imageFile);
+      setImgLoading(false);
       const eventData = {
         bannerImage: imageURL,
         clubId: club,
@@ -265,7 +267,7 @@ const CreateEvent = () => {
                 disabled={isPending}
                 className="btn btn-primary text-white rounded-xl text-lg mt-4 py-6"
               >
-                {isPending ? (
+                {isPending || imgLoading ? (
                   <div>
                     <p className="loading loading-spinner text-success"></p>
                   </div>

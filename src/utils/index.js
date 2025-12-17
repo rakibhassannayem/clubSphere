@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const imageUpload = async (imageData) => {
+  // loading true
   const formData = new FormData();
   formData.append("image", imageData);
 
@@ -8,7 +9,7 @@ export const imageUpload = async (imageData) => {
     `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb_api}`,
     formData
   );
-
+// false
   return data?.data?.display_url;
 };
 
