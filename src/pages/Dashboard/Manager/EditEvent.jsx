@@ -37,7 +37,6 @@ const EditEvent = () => {
       return res.data;
     },
   });
-  // console.log(event)
 
   const {
     eventTitle,
