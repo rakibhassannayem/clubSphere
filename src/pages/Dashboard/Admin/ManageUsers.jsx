@@ -89,7 +89,11 @@ const ManageUsers = () => {
                   <td>{user.email}</td>
                   <td
                     className={`badge text-white font-bold mt-2 ${
-                      user.role === "manager" ? "bg-orange-500" : "bg-gray-500"
+                      user.role === "manager"
+                        ? "bg-orange-500"
+                        : user.role === "admin"
+                        ? "bg-primary"
+                        : "bg-gray-500"
                     }`}
                   >
                     {user.role}

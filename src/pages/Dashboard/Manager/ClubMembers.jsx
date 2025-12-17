@@ -116,7 +116,7 @@ const ClubMembers = () => {
         </div>
       ) : (
         <p className="text-center text-2xl mt-10">
-          You haven't joined any club yet!
+          No members found!
         </p>
       )}
     </div>

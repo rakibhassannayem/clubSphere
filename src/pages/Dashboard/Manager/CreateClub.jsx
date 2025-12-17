@@ -68,6 +68,7 @@ const CreateClub = () => {
         createdAt: new Date(),
         members: 0,
         status: "pending",
+        events: 0,
       };
 
       await mutateAsync(clubData);
@@ -157,6 +158,8 @@ const CreateClub = () => {
                     <option value="Photography">Photography</option>
                     <option value="Sports">Sports</option>
                     <option value="Tech">Tech</option>
+                    <option value="Music">Music</option>
+                    <option value="Outdoor">Outdoor</option>
                   </select>
                   {errors.category && (
                     <p className="text-sm text-red-500 mt-1">

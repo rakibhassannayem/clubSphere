@@ -66,8 +66,8 @@ const ManageClubs = () => {
               <tr>
                 <th>Club Name</th>
                 <th>Manager Email</th>
-                <th>Category</th>
                 <th>Members</th>
+                <th>Events</th>
                 <th>Fee</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -78,8 +78,8 @@ const ManageClubs = () => {
                 <tr key={club._id}>
                   <td className="font-medium">{club.clubName}</td>
                   <td>{club.managerEmail}</td>
-                  <td className="font-medium">{club.category}</td>
                   <td className="font-medium">{club.members}</td>
+                  <td className="font-medium">{club.events}</td>
                   <td className="font-medium">
                     {club.membershipFee == 0 ? (
                       "Free"
@@ -136,7 +136,7 @@ const ManageClubs = () => {
         </div>
       ) : (
         <p className="text-center text-2xl mt-10">
-          You haven't joined any club yet!
+          No clubs has been created yet!
         </p>
       )}
     </div>

@@ -1,5 +1,5 @@
-import React from "react";
 import { FiEdit, FiUsers } from "react-icons/fi";
+import { HiOutlineExternalLink } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router";
 
@@ -27,7 +27,7 @@ const ManagerClubCard = ({ club }) => {
         <div className="absolute inset-0 bg-black/30"></div>
       </figure>
 
-      <div className="card-body pt-1">
+      <div className="card-body p-2">
         <div className="flex items-center justify-between">
           <h2 className="card-title">{clubName}</h2>
           <span
@@ -50,13 +50,22 @@ const ManagerClubCard = ({ club }) => {
           </div>
           <div>{membershipFee === 0 ? "FREE" : `$ ${membershipFee}/mo`}</div>
         </div>
-        <Link
-          to={`/dashboard/edit-club/${_id}`}
-          className="btn btn-outline text-primary rounded-lg text-lg"
-        >
-          <FiEdit />
-          Edit Club
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            to={`/dashboard/edit-club/${_id}`}
+            className="btn btn-outline text-primary rounded-lg text-lg flex-1"
+          >
+            <FiEdit />
+            Edit Club
+          </Link>
+          <Link
+            to={`/club-details/${_id}`}
+            className="btn btn-outline text-primary rounded-lg text-lg flex-1"
+          >
+            <HiOutlineExternalLink />
+            view
+          </Link>
+        </div>
       </div>
     </div>
   );

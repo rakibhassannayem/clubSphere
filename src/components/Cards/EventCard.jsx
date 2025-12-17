@@ -6,7 +6,7 @@ import { Link } from "react-router";
 const EventCard = ({ event }) => {
   const {
     _id,
-    title,
+    eventTitle,
     clubName,
     category,
     location,
@@ -29,7 +29,7 @@ const EventCard = ({ event }) => {
       <figure className="relative">
         <img
           src={bannerImage}
-          alt={title}
+          alt={eventTitle}
           className="h-42 w-full object-cover"
         />
 
@@ -52,7 +52,7 @@ const EventCard = ({ event }) => {
       </figure>
       <div className="p-3">
         <span className="badge bg-orange-50 text-orange-400">{category}</span>
-        <h2 className="card-title font-semibold text-xl mt-2">{title}</h2>
+        <h2 className="card-title font-semibold text-xl mt-2">{eventTitle}</h2>
         <p className="text-accent my-2">
           by <span className="text-primary">{clubName}</span>
         </p>

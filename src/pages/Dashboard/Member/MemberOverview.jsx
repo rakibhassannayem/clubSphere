@@ -23,7 +23,7 @@ const MemberOverview = () => {
   const { data: events = {}, isLoading: eventLoading } = useQuery({
     queryKey: ["member-events"],
     queryFn: async () => {
-      const res = await axiosSecure(`/upcoming-events`);
+      const res = await axiosSecure(`/member-events`);
       return res.data;
     },
   });
@@ -38,6 +38,12 @@ const MemberOverview = () => {
       </div>
     );
   }
+
+  const today = new Date();
+  const upcomingEvents = events.filter((event) => {
+    const eventDate = new Date(event.eventDate);
+    return eventDate > today;
+  });
 
   return (
     <div className="bg-base-200 p-4">
@@ -83,24 +89,33 @@ const MemberOverview = () => {
               View All <FaArrowRightLong />
             </Link>
           </div>
-          <div className="mt-5 space-y-5">
-            {events.map((event) => (
-              <div className="flex items-center justify-between bg-base-200 p-3 rounded-xl">
-                <div>
-                  <h3 className="font-medium">{event.eventTitle}</h3>
-                  <p>{event.clubName}</p>
-                </div>
-
+          {events.length ? (
+            <div className="mt-5 space-y-5">
+              {upcomingEvents.map((event) => (
                 <div
-                  className={`badge font-bold rounded-full ${
-                    event.eventFee && "bg-orange-500 text-white"
-                  }`}
+                  key={event._id}
+                  className="flex items-center justify-between bg-base-200 p-3 rounded-xl"
                 >
-                  {event.eventFee ? `$${event.eventFee}` : "Free"}
+                  <div>
+                    <h3 className="font-medium">{event.eventTitle}</h3>
+                    <p>{event.clubName}</p>
+                  </div>
+
+                  <div
+                    className={`badge font-bold rounded-full ${
+                      event.eventFee && "bg-orange-500 text-white"
+                    }`}
+                  >
+                    {event.eventFee ? `$${event.eventFee}` : "Free"}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center my-6 text-xl font-medium text-accent">
+              No Upcoming Events!
+            </p>
+          )}
         </div>
       </div>
     </div>
