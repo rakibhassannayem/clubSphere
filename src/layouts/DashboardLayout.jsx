@@ -1,4 +1,5 @@
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useLocation } from "react-router";
+import { AnimatePresence, motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
 import { LuBuilding2, LuUserCog } from "react-icons/lu";
@@ -16,13 +17,15 @@ import Loading from "../components/Shared/Loading/Loading";
 
 const DashboardLayout = () => {
   const { role, isRoleLoading } = useRole();
+  const location = useLocation();
 
   if (isRoleLoading) return <Loading />;
-  
+
 
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+
       <div className="drawer-content">
         {/* Navbar */}
         <nav className="navbar w-full bg-base-300">
@@ -38,12 +41,23 @@ const DashboardLayout = () => {
             {role === "admin"
               ? "Admin Dashboard"
               : role === "manager"
-              ? "Manager Dashboard"
-              : "Member Dashboard"}
+                ? "Manager Dashboard"
+                : "Member Dashboard"}
           </div>
         </nav>
         {/* Page content here */}
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="p-4"
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">
