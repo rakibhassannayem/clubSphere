@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import EventCard from "../Cards/EventCard";
 import LoadingSkeleton from "../Shared/LoadingSkeleton/LoadingSkeleton";
+import { Link } from "react-router";
 
 const UpcomingEvents = () => {
   const axiosSecure = useAxiosSecure();
@@ -44,9 +45,12 @@ const UpcomingEvents = () => {
       )}
 
       <div className="flex justify-center">
-        <button className="btn btn-outline border-2 mt-3 mb-10 text-primary text-lg hover:bg-primary hover:text-white rounded-xl">
+        <Link
+          to={"/events"}
+          className="btn btn-outline border-2 mt-3 mb-10 text-primary text-lg hover:bg-primary hover:text-white rounded-xl"
+        >
           View All Events →
-        </button>
+        </Link>
       </div>
     </div>
   );

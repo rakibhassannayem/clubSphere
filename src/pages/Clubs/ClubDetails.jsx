@@ -51,6 +51,7 @@ const ClubDetails = () => {
       return res.data;
     },
   });
+  console.log(membershipStatus);
 
   const handleJoinClub = () => {
     const paymentInfo = {
@@ -274,7 +275,7 @@ const ClubDetails = () => {
             {membershipFee === 0 ? "No membership fee" : "per month"}
           </p>
 
-          {membershipStatus.isMember ? (
+          {user?.email && membershipStatus.isMember ? (
             <div className="flex flex-col items-center mt-3">
               <div className="bg-primary/12 p-4 rounded-full">
                 <FiCheckCircle size={30} className="text-primary" />

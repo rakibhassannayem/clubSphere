@@ -266,7 +266,7 @@ const EventDetails = () => {
             value={registrations}
             max={maxAttendees}
           ></progress>
-          {registeredStatus.isRegistered ? (
+          {user?.email && registeredStatus.isRegistered ? (
             <div className="flex flex-col items-center mt-3">
               <div className="bg-primary/12 p-4 rounded-full">
                 <FiCheckCircle size={30} className="text-primary" />
