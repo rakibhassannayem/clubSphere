@@ -51,7 +51,7 @@ const MyEvents = () => {
       <div className="bg-white p-4 rounded-xl mt-4 shadow grid grid-cols-2 gap-5">
         {events.map((event) => (
           <div className="border border-base-300 p-4 rounded-xl">
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-col gap-2 sm:flex-row">
               <div>
                 <h3 className="text-lg font-semibold">{event.eventTitle}</h3>
                 <p className="text-accent">{event.clubName}</p>

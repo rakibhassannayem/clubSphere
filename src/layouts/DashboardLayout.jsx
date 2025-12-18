@@ -53,7 +53,6 @@ const DashboardLayout = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="p-4"
           >
             <Outlet />
           </motion.div>
