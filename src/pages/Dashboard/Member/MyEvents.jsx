@@ -5,7 +5,6 @@ import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingS
 import useAuth from "../../../hooks/useAuth";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoMdTime } from "react-icons/io";
-import { HiOutlineUsers } from "react-icons/hi";
 import { Link } from "react-router";
 import { FiExternalLink } from "react-icons/fi";
 

@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         const loggedUser = { email: currentUser.email };
-        fetch("http://localhost:3000/getJwtToken", {
+        fetch("https://club-sphere-server-fawn.vercel.app/getJwtToken", {
           method: "POST",
           headers: {
             "content-type": "application/json",
