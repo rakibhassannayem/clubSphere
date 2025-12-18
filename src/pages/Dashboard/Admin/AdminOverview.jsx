@@ -4,6 +4,7 @@ import { MdEventNote, MdPayment, MdPendingActions } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSkeleton from "../../../components/Shared/LoadingSkeleton/LoadingSkeleton";
+import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const AdminOverview = () => {
   const axiosSecure = useAxiosSecure();
@@ -26,6 +27,14 @@ const AdminOverview = () => {
       </div>
     );
   }
+
+  const piChartData = [
+    { name: "Users", value: stats.totalUsers },
+    { name: "Clubs", value: stats.totalClubs },
+    { name: "Members", value: stats.totalMemberships },
+    { name: "Events", value: stats.totalEvents },
+    { name: "Revenue", value: stats.revenue },
+  ];
 
   return (
     <div className="bg-base-200 p-4">
@@ -97,6 +106,25 @@ const AdminOverview = () => {
             </h2>
           </div>
         </div>
+      </div>
+
+      <div className="w-full h-[500px] flex justify-center items-center">
+        <ResponsiveContainer width="100%" height="100%" maxWidth={600}>
+          <PieChart>
+            <Pie
+              data={piChartData}
+              dataKey="value"
+              cx="50%"
+              cy="50%"
+              outerRadius={150}
+              label
+              isAnimationActive
+              fill="#0e816a"
+            />
+            <Legend />
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
