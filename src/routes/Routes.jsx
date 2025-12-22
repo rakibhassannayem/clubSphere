@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
