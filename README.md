@@ -6,11 +6,6 @@ Club Sphere is a comprehensive web application designed to streamline the manage
 
 [**Visit Live Website**](https://clubsphere-da4e4.web.app/)
 
-## 🔑 Admin Credentials
-
-- **Email:** `admin@gmail.com`
-- **Password:** `Admin@gmail.com`
-
 ## 🎯 Project Purpose
 
 The primary goal of Club Sphere is to facilitate efficient club management by offering tools for:
