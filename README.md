@@ -6,6 +6,8 @@ Club Sphere is a comprehensive web application designed to streamline the manage
 
 [**Visit Live Website**](https://clubsphere-da4e4.web.app/)
 
+![Club Sphere Screenshot](public/screenshot/clubSphere.png)
+
 ## 🎯 Project Purpose
 
 The primary goal of Club Sphere is to facilitate efficient club management by offering tools for:
