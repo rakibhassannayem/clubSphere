@@ -98,6 +98,19 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            `text-lg transition border-primary ${isActive
+              ? "text-primary font-bold border-b-2"
+              : "hover:border-b-2 text-primary"
+            }`
+          }
+          to={"/contact"}
+        >
+          Contact
+        </NavLink>
+      </li>
 
       {!user && (
         <div className="sm:hidden space-y-2">

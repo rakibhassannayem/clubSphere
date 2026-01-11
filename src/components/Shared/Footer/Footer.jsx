@@ -37,6 +37,9 @@ const Footer = () => {
           <Link to={"/about"} className="link link-hover hover:text-primary transition-colors">
             About Us
           </Link>
+          <Link to={"/contact"} className="link link-hover hover:text-primary transition-colors">
+            Contact Us
+          </Link>
         </nav>
 
         {/* Column 3: Social Links */}
