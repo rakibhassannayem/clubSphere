@@ -30,6 +30,7 @@ import CreateEvent from "../pages/Dashboard/Manager/CreateEvent";
 import EventDetails from "../pages/Events/EventDetails";
 import EditClub from "../pages/Dashboard/Manager/EditClub";
 import EditEvent from "../pages/Dashboard/Manager/EditEvent";
+import About from "../pages/About/About";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "about",
+        Component: About,
       },
       {
         path: "clubs",

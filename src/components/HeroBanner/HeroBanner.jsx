@@ -1,8 +1,39 @@
 import { Users, Sparkles, Calendar } from "lucide-react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const HeroBanner = () => {
+  const axiosSecure = useAxiosSecure();
+
+  // Fetch Events Count
+  const { data: events = [] } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/events");
+      return res.data;
+    },
+  });
+
+  // Fetch Clubs Count
+  const { data: clubs = [] } = useQuery({
+    queryKey: ["clubs"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/clubs");
+      return res.data;
+    },
+  });
+
+  // Fetch Members Count
+  const { data: members = [] } = useQuery({
+    queryKey: ["members"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/userCount");
+      return res.data;
+    },
+  });
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -70,7 +101,7 @@ const HeroBanner = () => {
             className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full text-sm backdrop-blur mb-6"
           >
             <Sparkles className="w-4 h-4" />
-            Join 10,000+ community members
+            Discover your passions together
           </motion.div>
 
           {/* Heading */}
@@ -121,15 +152,15 @@ const HeroBanner = () => {
             className="mt-16 flex justify-center gap-16 flex-wrap"
           >
             <div>
-              <h3 className="text-3xl font-bold">500+</h3>
+              <h3 className="text-3xl font-bold">{Math.max(0, clubs.length - 1)}+</h3>
               <p className="text-white/80">Active Clubs</p>
             </div>
             <div>
-              <h3 className="text-3xl font-bold">10K+</h3>
+              <h3 className="text-3xl font-bold">{Math.max(0, members - 1)}+</h3>
               <p className="text-white/80">Members</p>
             </div>
             <div>
-              <h3 className="text-3xl font-bold">2K+</h3>
+              <h3 className="text-3xl font-bold">{Math.max(0, events.length - 1)}+</h3>
               <p className="text-white/80">Events</p>
             </div>
           </motion.div>
@@ -142,7 +173,7 @@ const HeroBanner = () => {
           preserveAspectRatio="none"
         >
           <path
-            fill="#ffffff"
+            className="fill-base-100"
             d="M0,80 C240,120 480,40 720,60 960,80 1200,120 1440,100 L1440,120 L0,120 Z"
           />
         </svg>

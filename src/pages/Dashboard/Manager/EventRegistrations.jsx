@@ -35,8 +35,8 @@ const EventRegistrations = () => {
           <LoadingSkeleton />
         </div>
       ) : members.length !== 0 ? (
-        <div className="overflow-x-auto bg-white border border-base-300 rounded-2xl">
-          <h1 className="flex items-center gap-1 text-2xl text-secondary font-bold bg-white p-3 pb-0">
+        <div className="overflow-x-auto bg-base-100 border border-base-300 rounded-2xl">
+          <h1 className="flex items-center gap-1 text-2xl text-secondary font-bold p-3 pb-0">
             <HiOutlineClipboardList /> Registrations ({members.length})
           </h1>
           <table className="table">

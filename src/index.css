@@ -2,7 +2,7 @@
 
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light;
+  themes: light, dark;
 }
 
 @plugin "daisyui/theme" {
@@ -11,6 +11,17 @@
   --color-primary: #0e816a;
   --color-secondary: #132020;
   --color-accent: #6b7280;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #15BC9B;
+  --color-secondary: #D9DCE2;
+  --color-accent: #9ca3af;
+  --color-base-100: #132020;
+  --color-base-200: #1a2a2a;
+  --color-base-300: #243434;
+  --color-base-content: #f3f4f6;
 }
 
 /* body {

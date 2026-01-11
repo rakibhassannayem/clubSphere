@@ -38,7 +38,7 @@ const Cta = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-6 text-4xl font-bold tracking-tight md:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight md:text-5xl leading-[1.2]"
           >
             Start Building Your Community Today
           </motion.h2>

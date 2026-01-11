@@ -198,7 +198,7 @@ const EventDetails = () => {
       </figure>
 
       <div className="container mx-auto my-4 flex flex-col lg:flex-row justify-between gap-3">
-        <div className="border bg-white border-base-300 rounded-xl p-5 w-full">
+        <div className="border bg-base-100 border-base-300 rounded-xl p-5 w-full">
           {/* Tabs */}
           <div className="tabs tabs-boxed w-full font-semibold">
             <button
@@ -210,14 +210,14 @@ const EventDetails = () => {
               About
             </button>
 
-            <button
+            {/* <button
               className={`tab ${
                 activeTab === "attendees" ? "tab-active font-bold" : ""
               } text-xl`}
               onClick={() => setActiveTab("attendees")}
             >
               Attendees ({registrations})
-            </button>
+            </button> */}
           </div>
 
           {/* TAB CONTENT */}
@@ -248,7 +248,7 @@ const EventDetails = () => {
         </div>
 
         {/* registration card */}
-        <div className="text-center border bg-white border-base-300 rounded-xl p-5 min-w-96">
+        <div className="text-center border bg-base-100 border-base-300 rounded-xl p-5 min-w-96">
           <span className="text-4xl font-bold">
             {eventFee === 0 ? "FREE" : `$${eventFee}`}
           </span>

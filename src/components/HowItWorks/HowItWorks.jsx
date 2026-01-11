@@ -83,7 +83,7 @@ const HowItWorks = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        className="relative flex flex-col md:flex-row justify-between items-start gap-8"
+        className="relative flex flex-col md:flex-row justify-between items-center md:items-start gap-8"
       >
         <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-100 -z-10" />
 

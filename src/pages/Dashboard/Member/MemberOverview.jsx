@@ -55,7 +55,7 @@ const MemberOverview = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">My Clubs</p>
               <LuBuilding2 size={24} className="text-green-500" />
@@ -65,7 +65,7 @@ const MemberOverview = () => {
             </h2>
           </div>
 
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">My Events</p>
               <MdOutlineEventAvailable size={24} className="text-purple-500" />
@@ -76,14 +76,14 @@ const MemberOverview = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl mt-4 shadow">
+        <div className="bg-base-100 p-4 rounded-xl mt-4 shadow">
           <div className="flex items-center justify-between">
             <div className="text-2xl text-secondary font-bold flex items-center gap-2">
               <BsCalendar2Event size={22} className="text-primary" />
               <h2>Upcoming Events</h2>
             </div>
             <Link
-              to={"/events"}
+              to={"/dashboard/my-events"}
               className="flex items-center gap-2 hover:translate-x-1 transition cursor-pointer font-semibold"
             >
               View All <FaArrowRightLong />

@@ -47,7 +47,7 @@ const MyEvents = () => {
         </Link>
       </div>
 
-      <div className="bg-white p-4 rounded-xl mt-4 shadow grid grid-cols-2 gap-5">
+      <div className="bg-base-100 p-4 rounded-xl mt-4 shadow grid grid-cols-2 gap-5">
         {events.map((event) => (
           <div className="border border-base-300 p-4 rounded-xl">
             <div className="flex justify-between flex-col gap-2 sm:flex-row">

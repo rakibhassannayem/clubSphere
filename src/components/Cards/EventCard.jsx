@@ -36,7 +36,7 @@ const EventCard = ({ event }) => {
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
 
-        <span className="badge bg-base-300 text-black absolute top-3 right-3 font-bold">
+        <span className="badge bg-base-300 text-secondary absolute top-3 right-3 font-bold">
           <LuTicket />
           {eventFee === 0 ? "free" : <span>${eventFee}</span>}
         </span>
@@ -51,8 +51,8 @@ const EventCard = ({ event }) => {
         </div>
       </figure>
       <div className="p-3">
-        <span className="badge bg-orange-50 text-orange-400">{category}</span>
-        <h2 className="card-title font-semibold text-xl mt-2">{eventTitle}</h2>
+        <span className="badge bg-orange-50 text-orange-400 font-medium">{category}</span>
+        <h2 className="card-title text-secondary font-semibold text-xl mt-2">{eventTitle}</h2>
         <p className="text-accent my-2">
           by <span className="text-primary">{clubName}</span>
         </p>

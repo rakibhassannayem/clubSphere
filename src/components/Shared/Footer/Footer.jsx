@@ -45,13 +45,6 @@ const Footer = () => {
             >
               <FiFacebook className="w-5 h-5" />
             </a>
-
-            <a
-              href="https://www.instagram.com/rhnayem23"
-              className="w-10 h-10 rounded-lg bg-accent/30 flex items-center justify-center hover:bg-primary transition"
-            >
-              <FaInstagram className="w-5 h-5" />
-            </a>
           </div>
         </aside>
 

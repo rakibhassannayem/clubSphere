@@ -28,7 +28,7 @@ const ClubCard = ({ club }) => {
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
 
-        <span className="badge bg-base-300 text-black absolute top-3 right-3 font-bold">
+        <span className="badge bg-base-300 text-secondary absolute top-3 right-3 font-bold">
           {membershipFee == 0 ? "free" : <span>${membershipFee}/mo</span>}
         </span>
 
@@ -41,8 +41,8 @@ const ClubCard = ({ club }) => {
         <span className="badge bg-primary/10 text-primary font-medium">
           {category}
         </span>
-        <h2 className="card-title mt-2">{clubName}</h2>
-        <p className="text-accent my-2">{description}</p>
+        <h2 className="card-title text-secondary mt-2">{clubName}</h2>
+        <p className="text-accent my-2 truncate">{description}</p>
         <p className="text-accent flex items-center gap-1">
           <IoLocationOutline />
           {location}

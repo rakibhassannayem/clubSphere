@@ -19,7 +19,7 @@ const AdminOverview = () => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+      <div className="my-4 grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
         <LoadingSkeleton />
         <LoadingSkeleton />
         <LoadingSkeleton />
@@ -46,7 +46,7 @@ const AdminOverview = () => {
 
         {/* Stats */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Total Users</p>
               <FiUsers size={24} className="text-blue-500" />
@@ -56,7 +56,7 @@ const AdminOverview = () => {
             </h2>
           </div>
 
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Total Clubs</p>
               <LuBuilding2 size={24} className="text-green-500" />
@@ -66,7 +66,7 @@ const AdminOverview = () => {
             </h2>
           </div>
 
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Total Memberships</p>
               <FiUserCheck size={24} className="text-purple-500" />
@@ -76,7 +76,7 @@ const AdminOverview = () => {
             </h2>
           </div>
 
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Total Events</p>
               <MdEventNote size={24} className="text-orange-500" />
@@ -86,7 +86,7 @@ const AdminOverview = () => {
             </h2>
           </div>
 
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Total Payments Amount</p>
               <MdPayment size={24} className="text-primary" />
@@ -96,7 +96,7 @@ const AdminOverview = () => {
             </h2>
           </div>
 
-          <div className="bg-white border border-base-300 shadow rounded-xl p-5">
+          <div className="bg-base-100 border border-base-300 shadow rounded-xl p-5">
             <div className="flex items-center justify-between h-12">
               <p className="text-lg text-accent">Pending Clubs</p>
               <MdPendingActions size={24} className="text-orange-400" />
