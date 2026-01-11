@@ -68,7 +68,7 @@ const EditEvent = () => {
       navigate("/dashboard/events-management");
     },
     onError: (error) => {
-      toast.error(error);
+      // toast.error(error.message);
     },
     retry: 3,
   });

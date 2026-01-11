@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const axiosSecure = axios.create({
   baseURL: import.meta.env.VITE_api_URL,
@@ -25,24 +26,27 @@ const useAxiosSecure = () => {
       // interceptor response
       const resInterceptor = axiosSecure.interceptors.response.use(
         (response) => {
+          // Handle Demo Mode response (sent as 200 with isDemo: true)
+          if (response?.data?.isDemo) {
+            return Promise.reject(new Error(response.data.message));
+          }
           return response;
         },
-        (error) => {
-          console.log(error);
+        async (error) => {
+          const statusCode = error.response?.status;
 
-          const statusCode = error.status;
+          // Handle true Authorization/Unauthorized errors (Log out)
           if (statusCode === 401 || statusCode === 403) {
-            logout().then(() => {
-              navigate("/login");
-            });
+            await logout();
+            navigate("/login");
           }
 
           return Promise.reject(error);
         }
       );
       return () => {
-        axios.interceptors.request.eject(reqInterceptor);
-        axios.interceptors.response.eject(resInterceptor);
+        axiosSecure.interceptors.request.eject(reqInterceptor);
+        axiosSecure.interceptors.response.eject(resInterceptor);
       };
     }
   }, [user, loading, logout, navigate]);

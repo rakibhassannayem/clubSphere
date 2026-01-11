@@ -32,7 +32,7 @@ const ManageClubs = () => {
         refetch();
       }
     } catch (err) {
-      toast.error(err);
+      toast.error(err.message || "Failed to update status");
     }
   };
 
@@ -89,13 +89,12 @@ const ManageClubs = () => {
                   </td>
                   <td>
                     <div
-                      className={`badge text-white font-bold ${
-                        club.status === "approved"
+                      className={`badge text-white font-bold ${club.status === "approved"
                           ? "bg-primary"
                           : club.status === "pending"
-                          ? "bg-orange-400"
-                          : "bg-red-600"
-                      }`}
+                            ? "bg-orange-400"
+                            : "bg-red-600"
+                        }`}
                     >
                       {club.status}
                     </div>

@@ -35,14 +35,18 @@ const EventsManagement = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/events/${id}`).then(() => {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your event has been deleted.",
-            icon: "success",
+        axiosSecure.delete(`/events/${id}`)
+          .then(() => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your event has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          })
+          .catch((err) => {
+            toast.error(err.message || "Failed to delete event");
           });
-          refetch();
-        });
       }
     });
   };
@@ -104,9 +108,8 @@ const EventsManagement = () => {
                   <td className="text-secondary">{event.location}</td>
                   <td>
                     <div
-                      className={`badge font-bold rounded-full ${
-                        event.eventFee && "bg-orange-500 text-white"
-                      }`}
+                      className={`badge font-bold rounded-full ${event.eventFee && "bg-orange-500 text-white"
+                        }`}
                     >
                       {event.eventFee ? `$${event.eventFee}` : "Free"}
                     </div>

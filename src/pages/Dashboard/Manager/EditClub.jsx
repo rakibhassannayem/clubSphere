@@ -39,7 +39,7 @@ const EditClub = () => {
       navigate("/dashboard/manager-clubs");
     },
     onError: (error) => {
-      toast.error(error);
+      // toast.error(error.message);
     },
     retry: 3,
   });

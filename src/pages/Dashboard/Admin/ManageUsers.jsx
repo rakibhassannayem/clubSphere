@@ -32,7 +32,7 @@ const ManageUsers = () => {
         refetch();
       }
     } catch (err) {
-      toast.error(err);
+      toast.error(err.message || "Failed to update role");
     }
   };
 
@@ -89,13 +89,12 @@ const ManageUsers = () => {
                   <td>{user.email}</td>
                   <td>
                     <div
-                      className={`badge text-white font-bold mt-2 ${
-                        user.role === "manager"
+                      className={`badge text-white font-bold mt-2 ${user.role === "manager"
                           ? "bg-orange-500"
                           : user.role === "admin"
-                          ? "bg-primary"
-                          : "bg-gray-500"
-                      }`}
+                            ? "bg-primary"
+                            : "bg-gray-500"
+                        }`}
                     >
                       {user.role}
                     </div>

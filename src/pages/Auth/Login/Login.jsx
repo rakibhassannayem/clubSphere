@@ -18,12 +18,11 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
-  const handleLogin = (data) => {
-    const { email, password } = data;
-
+  const performLogin = (email, password) => {
     loginUser(email, password)
       .then((res) => {
         setUser(res.user);
@@ -34,6 +33,33 @@ const Login = () => {
         setLoading(false);
         toast.error(err.message);
       });
+  };
+
+  const handleDemoLogin = (role) => {
+    let email = "";
+    let password = "Password123";
+
+    if (role === "admin") {
+      email = "admin@sphere.com";
+      password = "Password123";
+    } else if (role === "manager") {
+      email = "manager@sphere.com";
+      password = "Password123";
+    } else if (role === "member") {
+      email = "member@sphere.com";
+      password = "Password123";
+    }
+
+    setValue("email", email);
+    setValue("password", password);
+
+    // Trigger login immediately
+    performLogin(email, password);
+  };
+
+  const handleLogin = (data) => {
+    const { email, password } = data;
+    performLogin(email, password);
   };
 
   const handleGoogleSignIn = async () => {
@@ -65,6 +91,32 @@ const Login = () => {
               Login to continue to ClubSphere
             </p>
           </div>
+
+          {/* Demo Login Buttons */}
+          <div className="mt-4 p-4 bg-primary/5 rounded-2xl border border-primary/10">
+            <p className="text-sm font-bold text-primary mb-3 text-center">Quick Demo Login</p>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <button
+                onClick={() => handleDemoLogin("admin")}
+                className="btn btn-xs btn-outline border-primary/30 text-primary hover:bg-primary hover:border-primary hover:text-white px-3 rounded-lg"
+              >
+                Admin
+              </button>
+              <button
+                onClick={() => handleDemoLogin("manager")}
+                className="btn btn-xs btn-outline border-primary/30 text-primary hover:bg-primary hover:border-primary hover:text-white px-3 rounded-lg"
+              >
+                Manager
+              </button>
+              <button
+                onClick={() => handleDemoLogin("member")}
+                className="btn btn-xs btn-outline border-primary/30 text-primary hover:bg-primary hover:border-primary hover:text-white px-3 rounded-lg"
+              >
+                Member
+              </button>
+            </div>
+          </div>
+
           <button
             onClick={handleGoogleSignIn}
             className="btn border-2 bg-white border-primary mt-2 rounded-xl text-lg py-6 text-primary hover:text-white hover:bg-primary"

@@ -48,7 +48,7 @@ const MyEvents = () => {
       </div>
 
       <div className="bg-base-100 p-4 rounded-xl mt-4 shadow grid grid-cols-2 gap-5">
-        {events.map((event) => (
+        {events.length ? events.map((event) => (
           <div className="border border-base-300 p-4 rounded-xl">
             <div className="flex justify-between flex-col gap-2 sm:flex-row">
               <div>
@@ -94,7 +94,7 @@ const MyEvents = () => {
               </Link>
             </div>
           </div>
-        ))}
+        )) : <p className="text-center text-accent text-lg">You haven't registered any events yet.</p>}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import { MdOutlineDateRange, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 import { LuTicket } from "react-icons/lu";
 import { IoMdTime } from "react-icons/io";
 import { HiOutlineUsers } from "react-icons/hi";
@@ -126,17 +127,16 @@ const EventDetails = () => {
               });
             })
             .catch((err) => {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: err.code,
-              });
+              toast.error(err.message || "Failed to register");
             });
         } else {
           axiosSecure
             .post("/create-checkout-session", paymentInfo)
             .then((res) => {
               window.location.href = res.data.url;
+            })
+            .catch((err) => {
+              toast.error(err.message || "Failed to initiate payment");
             });
         }
       }
@@ -202,9 +202,8 @@ const EventDetails = () => {
           {/* Tabs */}
           <div className="tabs tabs-boxed w-full font-semibold">
             <button
-              className={`tab ${
-                activeTab === "about" ? "tab-active font-bold" : ""
-              } text-xl`}
+              className={`tab ${activeTab === "about" ? "tab-active font-bold" : ""
+                } text-xl`}
               onClick={() => setActiveTab("about")}
             >
               About

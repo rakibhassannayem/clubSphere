@@ -31,7 +31,7 @@ const ClubMembers = () => {
         refetch();
       }
     } catch (err) {
-      toast.error(err);
+      toast.error(err.message || "Failed to update member status");
     }
   };
 
@@ -82,11 +82,10 @@ const ClubMembers = () => {
                   <td className="text-secondary">{member.clubName}</td>
                   <td>
                     <div
-                      className={`badge text-white font-bold mt-2 ${
-                        member.status === "active"
+                      className={`badge text-white font-bold mt-2 ${member.status === "active"
                           ? "bg-primary"
                           : "bg-orange-500"
-                      }`}
+                        }`}
                     >
                       {member.status}
                     </div>

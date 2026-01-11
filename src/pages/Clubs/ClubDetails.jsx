@@ -8,6 +8,7 @@ import { MdOutlineDateRange, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const ClubDetails = () => {
   const [activeTab, setActiveTab] = useState("about");
@@ -107,17 +108,16 @@ const ClubDetails = () => {
               });
             })
             .catch((err) => {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: err.code,
-              });
+              toast.error(err.message || "Failed to join club");
             });
         } else {
           axiosSecure
             .post("/create-checkout-session", paymentInfo)
             .then((res) => {
               window.location.href = res.data.url;
+            })
+            .catch((err) => {
+              toast.error(err.message || "Failed to initiate payment");
             });
         }
       }
@@ -176,9 +176,8 @@ const ClubDetails = () => {
           {/* Tabs */}
           <div className="tabs tabs-boxed w-full font-semibold">
             <button
-              className={`tab ${
-                activeTab === "about" ? "tab-active font-bold" : ""
-              } text-xl`}
+              className={`tab ${activeTab === "about" ? "tab-active font-bold" : ""
+                } text-xl`}
               onClick={() => setActiveTab("about")}
             >
               About
