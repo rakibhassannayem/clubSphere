@@ -32,71 +32,65 @@ const UpcomingEvents = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="text-center mb-4">
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-bold text-lg text-primary"
-        >
-          Featured Communities
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-secondary text-4xl font-bold mb-2"
-        >
-          Upcoming Events
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-accent"
-        >
-          Discover vibrant Events that match your interests. From outdoor
-          adventures <br /> to creative pursuits, find your perfect group.
-        </motion.p>
-      </div>
-
-      {isLoading ? (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
-          <LoadingSkeleton />
-          <LoadingSkeleton />
-          <LoadingSkeleton />
-          <LoadingSkeleton />
+    <section className="py-24 bg-base-100">
+      <div className="container mx-auto px-6">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold text-secondary mb-6"
+          >
+            Upcoming Events
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-lg text-accent"
+          >
+            Discover vibrant events that match your interests. From outdoor
+            adventures <br className="hidden md:block" /> to creative pursuits, find your perfect group and join the action.
+          </motion.p>
         </div>
-      ) : events.length !== 0 ? (
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5 px-3"
-        >
-          {events.map((event) => (
-            <motion.div key={event._id} variants={itemVariants}>
-              <EventCard event={event} />
-            </motion.div>
-          ))}
-        </motion.div>
-      ) : (
-        <p className="text-center text-2xl mt-10">No clubs found!</p>
-      )}
 
-      <div className="flex justify-center">
-        <Link
-          to={"/events"}
-          className="btn btn-outline border-2 mt-3 mb-10 text-primary text-lg hover:bg-primary hover:text-white rounded-xl"
-        >
-          View All Events →
-        </Link>
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </div>
+        ) : events.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {events.map((event) => (
+              <motion.div key={event._id} variants={itemVariants}>
+                <EventCard event={event} />
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-10">
+            <p className="text-2xl text-accent font-medium italic">No upcoming events found!</p>
+          </div>
+        )}
+
+        <div className="flex justify-center mt-16">
+          <Link
+            to="/events"
+            className="btn btn-primary text-white px-8 rounded-xl shadow-lg shadow-primary/20 transition-all hover:-translate-y-1"
+          >
+            View All Events →
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Cta = () => {
   return (
-    <section className="container mx-auto px-4 py-15">
+    <section className="container mx-auto px-4 py-24">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

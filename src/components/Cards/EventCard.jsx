@@ -24,7 +24,7 @@ const EventCard = ({ event }) => {
   return (
     <Link
       to={`/event-details/${_id}`}
-      className="card bg-base-100 shadow-sm hover:shadow-xl hover:scale-102 transition cursor-pointer"
+      className="card bg-base-200 shadow-sm hover:shadow-xl hover:scale-102 transition cursor-pointer"
     >
       <figure className="relative">
         <img
